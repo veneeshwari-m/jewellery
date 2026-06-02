@@ -1,0 +1,311 @@
+/* Footer.css - Redesigned Footer Styles */
+
+.footer-new {
+  background-color: #0a0a0a;
+  color: #a3a3a3;
+  padding: 4rem 5% 2rem 5%;
+  font-family: var(--font-sans);
+}
+
+/* ── Top content grid ── */
+.footer-new-content {
+  max-width: 1400px;
+  margin: 0 auto 3rem auto;
+  display: grid;
+  /* 5 equal nav columns + 1 wider newsletter column */
+  grid-template-columns: repeat(5, 1fr) 2.2fr;
+  gap: 2.5rem;
+  width: 100%;
+  align-items: start;
+}
+
+/* ── Column base ── */
+.footer-new-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Column headings ── */
+.footer-new-title {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin: 0 0 1.1rem 0;
+  padding: 0;
+}
+
+/* ── Nav link lists ── */
+.footer-new-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-new-link {
+  background: none;
+  border: none;
+  color: #a3a3a3;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.footer-new-link:hover {
+  color: #ffffff;
+}
+
+/* ── Contact column ── */
+.footer-new-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.footer-new-contact-val {
+  color: #a3a3a3;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* ── Newsletter column (last col) ── */
+.footer-new-newsletter-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-new-newsletter-text {
+  font-size: 0.85rem;
+  color: #a3a3a3;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.footer-new-subscribe-label {
+  font-size: 0.85rem;
+  color: #a3a3a3;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+/* ── Pill subscribe input ── */
+.footer-new-subscribe-pill {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 340px;
+  height: 44px;
+  margin-bottom: 1.5rem;
+}
+
+.footer-new-subscribe-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 1.25rem;
+  font-size: 0.85rem;
+  color: #333333;
+  background: #ffffff;
+  min-width: 0;
+}
+
+.footer-new-subscribe-btn {
+  background-color: #800000;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: none;
+  padding: 0 1.4rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+  border-radius: 0 30px 30px 0;
+}
+
+.footer-new-subscribe-btn:hover {
+  background-color: #a01a1a;
+}
+
+/* ── Download App block ── */
+.footer-new-download-app-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-new-download-text {
+  font-size: 0.95rem;
+  color: #d4d4d4;
+  font-weight: 600;
+}
+
+.footer-new-badge-link {
+  display: inline-block;
+}
+
+.footer-new-badge-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* ── Separator line ── */
+.footer-new-separator {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 1400px;
+  margin: 0 auto 1.75rem auto;
+}
+
+/* ── Bottom row ── */
+.footer-new-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 1rem;
+}
+
+.footer-new-copy {
+  font-size: 0.82rem;
+  color: #737373;
+  white-space: nowrap;
+}
+
+/* ── Follow Us block ── */
+.footer-new-followus-container {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.footer-new-followus-text {
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.footer-new-socials {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ── Social icon buttons ── */
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icon-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.social-icon-btn.fb-icon {
+  background-color: #3b5998;
+}
+
+.social-icon-btn.ig-icon {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* ── Scroll-to-top button ── */
+.footer-new-scrolltop-btn {
+  background-color: #800000;
+  color: #ffffff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.footer-new-scrolltop-btn:hover {
+  background-color: #a01a1a;
+  transform: translateY(-2px);
+}
+
+.scrolltop-svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+/* ── Tablet: 3-col grid ── */
+@media (max-width: 1024px) {
+  .footer-new-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-new-newsletter-col {
+    grid-column: 1 / -1;
+  }
+
+  .footer-new-subscribe-pill {
+    max-width: 420px;
+  }
+}
+
+/* ── Mobile: single column ── */
+@media (max-width: 640px) {
+  .footer-new-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .footer-new-newsletter-col {
+    grid-column: 1 / -1;
+  }
+
+  .footer-new-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .footer-new-followus-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .footer-new-content {
+    grid-template-columns: 1fr;
+  }
+}
