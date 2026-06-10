@@ -23,7 +23,7 @@ const TREND_MULTIPLIERS = {
 
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
-function Home() {
+function Home({ onNavigate }) {
   // Live rate states
   const [rates, setRates] = useState(DEFAULT_RATES);
   
@@ -227,10 +227,10 @@ function Home() {
         <div className="top-utility-bar">
           <div className="utility-left">
             <button onClick={() => scrollToSection('footer')} className="utility-link bold-link">CONTACT US | ENQUIRY FORM</button>
-            <button onClick={() => scrollToSection('footer')} className="utility-link bold-link">STORE LOCATOR</button>
+            <button onClick={() => onNavigate('storeLocator')} className="utility-link bold-link">STORE LOCATOR</button>
           </div>
           <div className="utility-right">
-            <button onClick={() => scrollToSection('rates')} className="utility-link">AUSPICIOUS DAYS</button>
+            <button onClick={() => { onNavigate('auspiciousDays'); window.scrollTo(0,0); }} className="utility-link">AUSPICIOUS DAYS</button>
             <button onClick={() => scrollToSection('calculator')} className="utility-link scheme-btn">SAVING SCHEME PAYMENT</button>
             <button onClick={() => scrollToSection('collections')} className="utility-link">BLOG</button>
             <button onClick={() => scrollToSection('calculator')} className="utility-link">CREATE AN ACCOUNT</button>
@@ -603,7 +603,7 @@ function Home() {
       </section>
 
       {/* 6. FOOTER */}
-      <Footer scrollToSection={scrollToSection} />
+      <Footer scrollToSection={scrollToSection} onNavigate={onNavigate} />
 
 
       {/* 7. LIVE RATES SIMULATOR PANEL */}

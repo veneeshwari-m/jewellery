@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 
-function Footer({ scrollToSection }) {
+function Footer({ scrollToSection, onNavigate }) {
   return (
     <footer id="footer" className="footer-new">
       <div className="footer-new-content">
@@ -19,7 +19,7 @@ function Footer({ scrollToSection }) {
         <div className="footer-new-col">
           <h4 className="footer-new-title">Let us help you</h4>
           <ul className="footer-new-links">
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">FAQ</button></li>
+            <li><button onClick={() => { if(onNavigate) { onNavigate('faq'); window.scrollTo(0,0); } else { scrollToSection('hero'); } }} className="footer-new-link">FAQ</button></li>
             <li><button onClick={() => scrollToSection('footer')} className="footer-new-link">Contaact / enquiry form</button></li>
             <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Bangle size Guide</button></li>
           </ul>
