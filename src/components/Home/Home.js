@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
+import { setRates } from '../../store/ratesSlice';
 import './Home.css';
 import Footer from '../Footer/Footer';
 
@@ -24,19 +27,10 @@ const TREND_MULTIPLIERS = {
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
 function Home({ onNavigate }) {
-  // Live rate states
-  const [rates, setRates] = useState(DEFAULT_RATES);
-  
-  // Simulator toggle & form state
-  const [isSimOpen, setIsSimOpen] = useState(false);
-  
-  // Modal state
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('gold22k'); // gold22k, gold24k, gold18k, silver, platinum
-  
-  
-  // SVG Chart Tooltip State
-  const [hoveredPoint, setHoveredPoint] = useState(null);
+  // Redux state
+  const dispatch = useDispatch();
+  const rates = useSelector((state) => state.rates);
+  const { isSimOpen, isHistoryOpen, activeTab, hoveredPoint } = useSelector((state) => state.ui);
 
   // Auto-scroll to sections helper
   const scrollToSection = (id) => {
@@ -164,8 +158,8 @@ function Home({ onNavigate }) {
               stroke="var(--primary-color)" 
               strokeWidth="3"
               style={{ cursor: 'pointer' }}
-              onMouseEnter={() => setHoveredPoint(p)}
-              onMouseLeave={() => setHoveredPoint(null)}
+              onMouseEnter={() => dispatch(setHoveredPoint(p))}
+              onMouseLeave={() => dispatch(setHoveredPoint(null))}
             />
           </g>
         ))}
@@ -184,119 +178,8 @@ function Home({ onNavigate }) {
   return (
     <div className="App">
       
-      {/* 1. RATE BOARD BANNER (Matches user screenshot exactly at the absolute top) */}
-      <div id="rates" className="rate-board-container">
-        <div className="rate-board-wrapper">
-          <div className="rates-row">
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 22k (1gm):</span>
-              <span className="rate-val">₹{rates.gold22k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 24k (1gm):</span>
-              <span className="rate-val">₹{rates.gold24k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 18k (1gm):</span>
-              <span className="rate-val">₹{rates.gold18k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">SILVER RATE (1gm):</span>
-              <span className="rate-val">₹{rates.silver.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">PLATINUM (1gm):</span>
-              <span className="rate-val">₹{rates.platinum.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="updated-time-badge">
-              Last updated: <strong>{rates.lastUpdated}</strong>
-            </div>
-          </div>
-          <button 
-            className="rate-history-btn"
-            onClick={() => setIsHistoryOpen(true)}
-          >
-            RATE HISTORY
-          </button>
-        </div>
-      </div>
 
-      {/* 2. NAVIGATION BAR (Sticky navigation below the rate board) */}
-      <header className="main-header">
-        {/* Top Utility Bar */}
-        <div className="top-utility-bar">
-          <div className="utility-left">
-            <button onClick={() => scrollToSection('footer')} className="utility-link bold-link">CONTACT US | ENQUIRY FORM</button>
-            <button onClick={() => onNavigate('storeLocator')} className="utility-link bold-link">STORE LOCATOR</button>
-          </div>
-          <div className="utility-right">
-            <button onClick={() => { onNavigate('auspiciousDays'); window.scrollTo(0,0); }} className="utility-link">AUSPICIOUS DAYS</button>
-            <button onClick={() => scrollToSection('calculator')} className="utility-link scheme-btn">SAVING SCHEME PAYMENT</button>
-            <button onClick={() => scrollToSection('collections')} className="utility-link">BLOG</button>
-            <button onClick={() => scrollToSection('calculator')} className="utility-link">CREATE AN ACCOUNT</button>
-          </div>
-        </div>
 
-        {/* Main Navbar */}
-        <nav className="navbar-new">
-          <div className="navbar-left">
-            <img src="/image/jewel-logo.png" alt="Jewel Logo" className="jewel-logo-img" />
-            <div className="virtual-shopping" onClick={() => scrollToSection('footer')}>
-              <svg className="virtual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
-                <path d="M22 8l-6 4 6 4V8z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>VIRTUAL SHOPPING</span>
-            </div>
-          </div>
-
-          <div className="navbar-center">
-            <div className="search-bar-container">
-              <input type="text" placeholder="Search..." className="search-input" />
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          </div>
-
-          <div className="navbar-right">
-            <div className="contact-phone">
-              <svg className="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <div className="phone-details">
-                <span className="phone-number">+1234 567 8900</span>
-                <span className="phone-hours">10AM to 6PM IST</span>
-              </div>
-            </div>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('calculator')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span>LOGIN</span>
-            </button>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('collections')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>WISHLIST</span>
-            </button>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('calculator')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" strokeLinecap="round" strokeLinejoin="round" />
-                <line x1="3" y1="6" x2="21" y2="6" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M16 10a4 4 0 0 1-8 0" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>CART</span>
-            </button>
-          </div>
-        </nav>
-      </header>
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
       <header id="hero" className="hero-banner-section" onClick={() => scrollToSection('calculator')}>
@@ -310,25 +193,50 @@ function Home({ onNavigate }) {
       {/* 4. BRAND FEATURES SECTION */}
       <section className="features-section">
         <div className="features-container">
-          <div className="feature-item">
-            <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
-            <span className="feature-text">Listed Company</span>
+          <div className="features-scroll-track">
+            <div className="feature-item">
+              <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
+              <span className="feature-text">Listed Company</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
+              <span className="feature-text">Best Price</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
+              <span className="feature-text">Secure Retail</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
+              <span className="feature-text">100% Refund</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
+              <span className="feature-text">15 Days Return</span>
+            </div>
           </div>
-          <div className="feature-item">
-            <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
-            <span className="feature-text">Best Price</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
-            <span className="feature-text">Secure Retail</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
-            <span className="feature-text">100% Refund</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
-            <span className="feature-text">15 Days Return</span>
+          {/* Duplicated for seamless mobile marquee */}
+          <div className="features-scroll-track duplicate-features">
+            <div className="feature-item">
+              <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
+              <span className="feature-text">Listed Company</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
+              <span className="feature-text">Best Price</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
+              <span className="feature-text">Secure Retail</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
+              <span className="feature-text">100% Refund</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
+              <span className="feature-text">15 Days Return</span>
+            </div>
           </div>
         </div>
       </section>
@@ -602,14 +510,10 @@ function Home({ onNavigate }) {
         </div>
       </section>
 
-      {/* 6. FOOTER */}
-      <Footer scrollToSection={scrollToSection} onNavigate={onNavigate} />
-
-
       {/* 7. LIVE RATES SIMULATOR PANEL */}
       <button 
         className="simulator-trigger"
-        onClick={() => setIsSimOpen(!isSimOpen)}
+        onClick={() => dispatch(setIsSimOpen(!isSimOpen))}
       >
         <span>⚙</span> Live Rates Panel
       </button>
@@ -618,7 +522,7 @@ function Home({ onNavigate }) {
         <div className="simulator-panel">
           <div className="simulator-header">
             <span className="simulator-title">Rates Simulator</span>
-            <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => setIsSimOpen(false)}>×</button>
+            <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => dispatch(setIsSimOpen(false))}>×</button>
           </div>
           
           <div className="simulator-row">
@@ -627,7 +531,7 @@ function Home({ onNavigate }) {
               type="number" 
               className="simulator-input"
               value={rates.gold22k}
-              onChange={(e) => setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -637,7 +541,7 @@ function Home({ onNavigate }) {
               type="number" 
               className="simulator-input"
               value={rates.gold24k}
-              onChange={(e) => setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -647,7 +551,7 @@ function Home({ onNavigate }) {
               type="number" 
               className="simulator-input"
               value={rates.gold18k}
-              onChange={(e) => setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -657,7 +561,7 @@ function Home({ onNavigate }) {
               type="number" 
               className="simulator-input"
               value={rates.silver}
-              onChange={(e) => setRates({ ...rates, silver: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, silver: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -667,7 +571,7 @@ function Home({ onNavigate }) {
               type="number" 
               className="simulator-input"
               value={rates.platinum}
-              onChange={(e) => setRates({ ...rates, platinum: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, platinum: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -678,136 +582,20 @@ function Home({ onNavigate }) {
               className="simulator-input"
               style={{ width: '150px' }}
               value={rates.lastUpdated}
-              onChange={(e) => setRates({ ...rates, lastUpdated: e.target.value })}
+              onChange={(e) => dispatch(setRates({ ...rates, lastUpdated: e.target.value }))}
             />
           </div>
 
           <button 
             className="simulator-reset-btn"
-            onClick={() => setRates(DEFAULT_RATES)}
+            onClick={() => dispatch(setRates(DEFAULT_RATES))}
           >
             Reset to Reference Screenshot Rates
           </button>
         </div>
       )}
 
-      {/* 8. RATE HISTORY MODAL */}
-      {isHistoryOpen && (
-        <div className="modal-overlay" onClick={() => setIsHistoryOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            
-            <div className="modal-header">
-              <h2 className="modal-title">Live Rate Trends & History</h2>
-              <button 
-                className="modal-close-btn"
-                onClick={() => setIsHistoryOpen(false)}
-              >
-                ×
-              </button>
-            </div>
 
-            <div className="modal-body">
-              {/* Tab Selector */}
-              <div className="modal-tabs">
-                <button 
-                  className={`modal-tab-btn ${activeTab === 'gold22k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold22k')}
-                >
-                  Gold 22K
-                </button>
-                <button 
-                  className={`modal-tab-btn ${activeTab === 'gold24k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold24k')}
-                >
-                  Gold 24K
-                </button>
-                <button 
-                  className={`modal-tab-btn ${activeTab === 'gold18k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold18k')}
-                >
-                  Gold 18K
-                </button>
-                <button 
-                  className={`modal-tab-btn ${activeTab === 'silver' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('silver')}
-                >
-                  Silver
-                </button>
-                <button 
-                  className={`modal-tab-btn ${activeTab === 'platinum' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('platinum')}
-                >
-                  Platinum
-                </button>
-              </div>
-
-              {/* Chart Visualizer */}
-              <div className="chart-section">
-                <h3 className="chart-title">7-Day Trend Chart</h3>
-                
-                <div className="chart-svg-container">
-                  {renderChart()}
-
-                  {/* SVG Tooltip */}
-                  {hoveredPoint && (
-                    <div 
-                      className="chart-tooltip-bubble"
-                      style={{ 
-                        left: `${(hoveredPoint.x / 560) * 100}%`, 
-                        top: `${(hoveredPoint.y / 180) * 100}%` 
-                      }}
-                    >
-                      <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{hoveredPoint.date}</span>
-                      <span>₹{hoveredPoint.rate.toLocaleString('en-IN')}</span>
-                    </div>
-                  )}
-                </div>
-                
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1rem', fontStyle: 'italic' }}>
-                  💡 Hover over trend nodes to see details. Trends generated relative to current live values.
-                </p>
-              </div>
-
-              {/* History Table */}
-              <div className="table-section">
-                <h3 className="table-title">Daily Rates Log</h3>
-                <div className="history-table-wrapper">
-                  <table className="history-table">
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Rate (per 1gm)</th>
-                        <th>Daily Change</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {historyData.slice().reverse().map((d, index) => (
-                        <tr key={index}>
-                          <td style={{ fontWeight: 600 }}>{d.date}</td>
-                          <td style={{ fontWeight: 700, color: 'var(--primary-color)' }}>
-                            ₹{d.rate.toLocaleString('en-IN')}
-                          </td>
-                          <td>
-                            {d.change === 0 ? (
-                              <span style={{ color: 'var(--text-muted)' }}>-</span>
-                            ) : d.change > 0 ? (
-                              <span className="trend-up">▲ +₹{d.change.toLocaleString('en-IN')}</span>
-                            ) : (
-                              <span className="trend-down">▼ -₹{Math.abs(d.change).toLocaleString('en-IN')}</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      )}
 
     </div>
   );

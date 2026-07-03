@@ -299,8 +299,17 @@
     text-align: center;
   }
 
+  .footer-new-copy {
+    order: 3;
+  }
+
   .footer-new-followus-container {
     justify-content: center;
+    order: 1;
+  }
+
+  .footer-new-scrolltop-btn {
+    order: 2;
   }
 }
 

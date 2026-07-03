@@ -1,0 +1,149 @@
+.category-navbar {
+  background-color: #800000;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 200; /* Ensure it stays above other content when scrolling */
+}
+
+.category-navbar-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the left */
+  gap: 1.5rem;
+  padding: 0.8rem 3rem; /* Add some padding to push it slightly inwards from the edge */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.category-navbar-container::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #ffffff;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+}
+
+.category-nav-item:hover {
+  opacity: 0.8;
+}
+
+.dropdown-arrow {
+  width: 12px;
+  height: 12px;
+  stroke: #ffffff;
+}
+
+/* Mobile Off-Canvas Menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 85vw;
+  max-width: 320px;
+  height: 100vh;
+  background-color: #f7f7f7;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  animation: slideInLeft 0.3s ease;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.mobile-menu-header {
+  display: flex;
+  width: 100%;
+  height: 50px;
+}
+
+.mobile-menu-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-tab {
+  background-color: #f7f7f7;
+  color: #a01a1a;
+}
+
+.menu-tab svg {
+  width: 16px;
+  height: 16px;
+  stroke: #a01a1a;
+}
+
+.account-tab {
+  background-color: #a01a1a;
+  color: #ffffff;
+}
+
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e5e5e5;
+  color: #555555;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #f7f7f7;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-item:hover {
+  background-color: #ebebeb;
+}
+
+.mobile-menu-item svg {
+  width: 16px;
+  height: 16px;
+  stroke: #888888;
+}
+
+/* Hide desktop navbar on small screens if we are using the hamburger menu instead */
+@media (max-width: 768px) {
+  .category-navbar {
+    display: none;
+  }
+}
