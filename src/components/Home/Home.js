@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
+import { setRates } from '../../store/ratesSlice';
 import './Home.css';
 import Footer from '../Footer/Footer';
 
@@ -24,19 +27,10 @@ const TREND_MULTIPLIERS = {
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
 function Home() {
-  // Live rate states
-  const [rates, setRates] = useState(DEFAULT_RATES);
-  
-  // Simulator toggle & form state
-  const [isSimOpen, setIsSimOpen] = useState(false);
-  
-  // Modal state
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('gold22k'); // gold22k, gold24k, gold18k, silver, platinum
-  
-  
-  // SVG Chart Tooltip State
-  const [hoveredPoint, setHoveredPoint] = useState(null);
+  // Redux state
+  const dispatch = useDispatch();
+  const rates = useSelector((state) => state.rates);
+  const { isSimOpen, isHistoryOpen, activeTab, hoveredPoint } = useSelector((state) => state.ui);
 
   // Auto-scroll to sections helper
   const scrollToSection = (id) => {
@@ -164,8 +158,8 @@ function Home() {
               stroke="var(--primary-color)" 
               strokeWidth="3"
               style={{ cursor: 'pointer' }}
-              onMouseEnter={() => setHoveredPoint(p)}
-              onMouseLeave={() => setHoveredPoint(null)}
+              onMouseEnter={() => dispatch(setHoveredPoint(p))}
+              onMouseLeave={() => dispatch(setHoveredPoint(null))}
             />
           </g>
         ))}
@@ -214,7 +208,7 @@ function Home() {
           </div>
           <button 
             className="rate-history-btn"
-            onClick={() => setIsHistoryOpen(true)}
+            onClick={() => dispatch(setIsHistoryOpen(true))}
           >
             RATE HISTORY
           </button>
@@ -609,7 +603,7 @@ function Home() {
       {/* 7. LIVE RATES SIMULATOR PANEL */}
       <button 
         className="simulator-trigger"
-        onClick={() => setIsSimOpen(!isSimOpen)}
+        onClick={() => dispatch(setIsSimOpen(!isSimOpen))}
       >
         <span>⚙</span> Live Rates Panel
       </button>
@@ -618,7 +612,7 @@ function Home() {
         <div className="simulator-panel">
           <div className="simulator-header">
             <span className="simulator-title">Rates Simulator</span>
-            <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => setIsSimOpen(false)}>×</button>
+            <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => dispatch(setIsSimOpen(false))}>×</button>
           </div>
           
           <div className="simulator-row">
@@ -627,7 +621,7 @@ function Home() {
               type="number" 
               className="simulator-input"
               value={rates.gold22k}
-              onChange={(e) => setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -637,7 +631,7 @@ function Home() {
               type="number" 
               className="simulator-input"
               value={rates.gold24k}
-              onChange={(e) => setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -647,7 +641,7 @@ function Home() {
               type="number" 
               className="simulator-input"
               value={rates.gold18k}
-              onChange={(e) => setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -657,7 +651,7 @@ function Home() {
               type="number" 
               className="simulator-input"
               value={rates.silver}
-              onChange={(e) => setRates({ ...rates, silver: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, silver: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -667,7 +661,7 @@ function Home() {
               type="number" 
               className="simulator-input"
               value={rates.platinum}
-              onChange={(e) => setRates({ ...rates, platinum: parseInt(e.target.value) || 0 })}
+              onChange={(e) => dispatch(setRates({ ...rates, platinum: parseInt(e.target.value) || 0 }))}
             />
           </div>
 
@@ -678,13 +672,13 @@ function Home() {
               className="simulator-input"
               style={{ width: '150px' }}
               value={rates.lastUpdated}
-              onChange={(e) => setRates({ ...rates, lastUpdated: e.target.value })}
+              onChange={(e) => dispatch(setRates({ ...rates, lastUpdated: e.target.value }))}
             />
           </div>
 
           <button 
             className="simulator-reset-btn"
-            onClick={() => setRates(DEFAULT_RATES)}
+            onClick={() => dispatch(setRates(DEFAULT_RATES))}
           >
             Reset to Reference Screenshot Rates
           </button>
@@ -693,14 +687,14 @@ function Home() {
 
       {/* 8. RATE HISTORY MODAL */}
       {isHistoryOpen && (
-        <div className="modal-overlay" onClick={() => setIsHistoryOpen(false)}>
+        <div className="modal-overlay" onClick={() => dispatch(setIsHistoryOpen(false))}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             
             <div className="modal-header">
               <h2 className="modal-title">Live Rate Trends & History</h2>
               <button 
                 className="modal-close-btn"
-                onClick={() => setIsHistoryOpen(false)}
+                onClick={() => dispatch(setIsHistoryOpen(false))}
               >
                 ×
               </button>
@@ -711,31 +705,31 @@ function Home() {
               <div className="modal-tabs">
                 <button 
                   className={`modal-tab-btn ${activeTab === 'gold22k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold22k')}
+                  onClick={() => dispatch(setActiveTab('gold22k'))}
                 >
                   Gold 22K
                 </button>
                 <button 
                   className={`modal-tab-btn ${activeTab === 'gold24k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold24k')}
+                  onClick={() => dispatch(setActiveTab('gold24k'))}
                 >
                   Gold 24K
                 </button>
                 <button 
                   className={`modal-tab-btn ${activeTab === 'gold18k' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('gold18k')}
+                  onClick={() => dispatch(setActiveTab('gold18k'))}
                 >
                   Gold 18K
                 </button>
                 <button 
                   className={`modal-tab-btn ${activeTab === 'silver' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('silver')}
+                  onClick={() => dispatch(setActiveTab('silver'))}
                 >
                   Silver
                 </button>
                 <button 
                   className={`modal-tab-btn ${activeTab === 'platinum' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('platinum')}
+                  onClick={() => dispatch(setActiveTab('platinum'))}
                 >
                   Platinum
                 </button>
