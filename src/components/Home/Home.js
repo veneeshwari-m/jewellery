@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
 import { setRates } from '../../store/ratesSlice';
 import './Home.css';
-import Footer from '../Footer/Footer';
 
 // Initial default rates matching the user screenshot exactly
 const DEFAULT_RATES = {
@@ -53,8 +52,6 @@ function Home() {
   };
 
   const historyData = getHistoryData(activeTab);
-
-
 
   // Render SVG Chart for Modal
   const renderChart = () => {
@@ -177,44 +174,6 @@ function Home() {
 
   return (
     <div className="App">
-      
-      {/* 1. RATE BOARD BANNER (Matches user screenshot exactly at the absolute top) */}
-      <div id="rates" className="rate-board-container">
-        <div className="rate-board-wrapper">
-          <div className="rates-row">
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 22k (1gm):</span>
-              <span className="rate-val">₹{rates.gold22k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 24k (1gm):</span>
-              <span className="rate-val">₹{rates.gold24k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">GOLD RATE 18k (1gm):</span>
-              <span className="rate-val">₹{rates.gold18k.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">SILVER RATE (1gm):</span>
-              <span className="rate-val">₹{rates.silver.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="rate-item">
-              <span className="rate-label">PLATINUM (1gm):</span>
-              <span className="rate-val">₹{rates.platinum.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="updated-time-badge">
-              Last updated: <strong>{rates.lastUpdated}</strong>
-            </div>
-          </div>
-          <button 
-            className="rate-history-btn"
-            onClick={() => dispatch(setIsHistoryOpen(true))}
-          >
-            RATE HISTORY
-          </button>
-        </div>
-      </div>
-
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
       <header id="hero" className="hero-banner-section" onClick={() => scrollToSection('calculator')}>
@@ -544,10 +503,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* 6. FOOTER */}
-      <Footer scrollToSection={scrollToSection} />
-
 
       {/* 7. LIVE RATES SIMULATOR PANEL */}
       <button 

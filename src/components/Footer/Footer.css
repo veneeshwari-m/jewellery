@@ -122,7 +122,7 @@
 }
 
 .footer-new-subscribe-btn {
-  background-color: #800000;
+  background-color: var(--primary-color);
   color: #ffffff;
   font-weight: 700;
   font-size: 0.8rem;
@@ -240,7 +240,7 @@
 
 /* ── Scroll-to-top button ── */
 .footer-new-scrolltop-btn {
-  background-color: #800000;
+  background-color: var(--primary-color);
   color: #ffffff;
   width: 42px;
   height: 42px;

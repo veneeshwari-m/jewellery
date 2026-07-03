@@ -52,7 +52,7 @@
 .utility-link {
   font-size: 0.74rem;
   font-weight: 600; /* Regular-medium link weight */
-  color: #800000; /* Maroon link colors */
+  color: var(--primary-color); /* Maroon link colors */
   text-decoration: none;
   letter-spacing: 0.5px;
   background: none;
@@ -75,7 +75,7 @@
 }
 
 .utility-link.scheme-btn {
-  border: 1px solid #800000;
+  border: 1px solid var(--primary-color);
   padding: 0.3rem 0.8rem;
   font-weight: 900; /* Maximum bold */
   font-size: 0.78rem;
@@ -84,7 +84,7 @@
 }
 
 .utility-link.scheme-btn:hover {
-  background-color: #800000;
+  background-color: var(--primary-color);
   color: #ffffff;
   opacity: 1;
 }
@@ -120,14 +120,14 @@
   border-radius: 6px;
   object-fit: cover;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  background-color: #800000;
+  background-color: var(--primary-color);
 }
 
 .virtual-shopping {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: #800000;
+  color: var(--primary-color);
   font-weight: 800;
   font-size: 0.9rem;
   letter-spacing: 0.5px;
@@ -142,7 +142,7 @@
 .virtual-icon {
   width: 26px;
   height: 26px;
-  stroke: #800000;
+  stroke: var(--primary-color);
 }
 
 /* Search Bar (Pill Shape) */
@@ -170,7 +170,7 @@
 }
 
 .search-input:focus {
-  border-color: #800000;
+  border-color: var(--primary-color);
   box-shadow: 0 0 5px rgba(128, 0, 0, 0.15);
 }
 
@@ -201,7 +201,7 @@
 .phone-icon {
   width: 22px;
   height: 22px;
-  stroke: #800000; /* Dark-red phone icon matching user screenshot */
+  stroke: var(--primary-color); /* Dark-red phone icon matching user screenshot */
 }
 
 .phone-details {
@@ -226,7 +226,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  color: #800000; /* Dark-red action items matching user screenshot */
+  color: var(--primary-color); /* Dark-red action items matching user screenshot */
   cursor: pointer;
   background: none;
   border: none;
@@ -342,7 +342,7 @@
    Live Rate Board (Maroon Banner)
 ---------------------------------------------------- */
 .rate-board-container {
-  background-color: #800000; /* Solid deep maroon */
+  background: linear-gradient(135deg, #2b0213 0%, #4a0820 100%);
   padding: 1.5rem 2rem; /* Reduced top/bottom padding from 3rem to 1.5rem */
   color: var(--text-light);
   font-family: var(--font-sans);
@@ -418,7 +418,7 @@
 
 .updated-time-badge {
   background-color: #ffffff;
-  color: #800000; /* Maroon label */
+  color: var(--primary-color); /* Maroon label */
   padding: 0.4rem 0.8rem; /* Slightly reduced padding */
   border-radius: 0px; /* Sharp rectangle */
   font-weight: 700;
@@ -481,7 +481,7 @@
 
 .rate-history-btn {
   background-color: #ffffff;
-  color: #800000;
+  color: var(--primary-color);
   padding: 0.45rem 1.75rem;
   font-size: 0.9rem;
   font-weight: 800;
@@ -496,7 +496,7 @@
 
 .rate-history-btn:hover {
   background-color: #f2eae4;
-  color: #800000;
+  color: var(--primary-color);
   transform: scale(1.05);
 }
 
@@ -1053,7 +1053,7 @@
 .scheme-readmore {
   background: none;
   border: none;
-  color: #800000;
+  color: var(--primary-color);
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
@@ -1069,7 +1069,7 @@
 }
 
 .scheme-btn-primary {
-  background-color: #800000;
+  background-color: var(--primary-color);
   color: #ffffff;
   font-weight: 800;
   font-size: 0.9rem;
