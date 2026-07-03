@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
 import { setRates } from '../../store/ratesSlice';
 import './Home.css';
-import Footer from '../Footer/Footer';
 
 // Initial default rates matching the user screenshot exactly
 const DEFAULT_RATES = {
@@ -26,7 +25,7 @@ const TREND_MULTIPLIERS = {
 
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
-function Home({ onNavigate }) {
+function Home() {
   // Redux state
   const dispatch = useDispatch();
   const rates = useSelector((state) => state.rates);
@@ -53,8 +52,6 @@ function Home({ onNavigate }) {
   };
 
   const historyData = getHistoryData(activeTab);
-
-
 
   // Render SVG Chart for Modal
   const renderChart = () => {
@@ -177,9 +174,6 @@ function Home({ onNavigate }) {
 
   return (
     <div className="App">
-      
-
-
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
       <header id="hero" className="hero-banner-section" onClick={() => scrollToSection('calculator')}>
@@ -595,7 +589,123 @@ function Home({ onNavigate }) {
         </div>
       )}
 
+      {/* 8. RATE HISTORY MODAL */}
+      {isHistoryOpen && (
+        <div className="modal-overlay" onClick={() => dispatch(setIsHistoryOpen(false))}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            
+            <div className="modal-header">
+              <h2 className="modal-title">Live Rate Trends & History</h2>
+              <button 
+                className="modal-close-btn"
+                onClick={() => dispatch(setIsHistoryOpen(false))}
+              >
+                ×
+              </button>
+            </div>
 
+            <div className="modal-body">
+              {/* Tab Selector */}
+              <div className="modal-tabs">
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold22k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold22k'))}
+                >
+                  Gold 22K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold24k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold24k'))}
+                >
+                  Gold 24K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold18k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold18k'))}
+                >
+                  Gold 18K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'silver' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('silver'))}
+                >
+                  Silver
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'platinum' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('platinum'))}
+                >
+                  Platinum
+                </button>
+              </div>
+
+              {/* Chart Visualizer */}
+              <div className="chart-section">
+                <h3 className="chart-title">7-Day Trend Chart</h3>
+                
+                <div className="chart-svg-container">
+                  {renderChart()}
+
+                  {/* SVG Tooltip */}
+                  {hoveredPoint && (
+                    <div 
+                      className="chart-tooltip-bubble"
+                      style={{ 
+                        left: `${(hoveredPoint.x / 560) * 100}%`, 
+                        top: `${(hoveredPoint.y / 180) * 100}%` 
+                      }}
+                    >
+                      <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{hoveredPoint.date}</span>
+                      <span>₹{hoveredPoint.rate.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+                </div>
+                
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1rem', fontStyle: 'italic' }}>
+                  💡 Hover over trend nodes to see details. Trends generated relative to current live values.
+                </p>
+              </div>
+
+              {/* History Table */}
+              <div className="table-section">
+                <h3 className="table-title">Daily Rates Log</h3>
+                <div className="history-table-wrapper">
+                  <table className="history-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Rate (per 1gm)</th>
+                        <th>Daily Change</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {historyData.slice().reverse().map((d, index) => (
+                        <tr key={index}>
+                          <td style={{ fontWeight: 600 }}>{d.date}</td>
+                          <td style={{ fontWeight: 700, color: 'var(--primary-color)' }}>
+                            ₹{d.rate.toLocaleString('en-IN')}
+                          </td>
+                          <td>
+                            {d.change === 0 ? (
+                              <span style={{ color: 'var(--text-muted)' }}>-</span>
+                            ) : d.change > 0 ? (
+                              <span className="trend-up">▲ +₹{d.change.toLocaleString('en-IN')}</span>
+                            ) : (
+                              <span className="trend-down">▼ -₹{Math.abs(d.change).toLocaleString('en-IN')}</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -1,4 +1,15 @@
 const fs = require('fs');
+<<<<<<< HEAD
+const path = require('path');
+
+const filePath = path.join(__dirname, 'src', 'components', 'Home', 'Home.js');
+let content = fs.readFileSync(filePath, 'utf8');
+
+content = content.replace(/dispatch\(setRates\(\{ \.\.\.rates, (.*?): parseInt\(e\.target\.value\)\) \|\| 0 \}\)\}/g, 'dispatch(setRates({ ...rates, $1: parseInt(e.target.value) || 0 }))');
+
+fs.writeFileSync(filePath, content, 'utf8');
+console.log('Fixed syntax error in Home.js!');
+=======
 let content = fs.readFileSync(String.raw`d:\jewellery\jewellery\src\components\Layout\Layout.js`, 'utf8');
 
 const badStart = content.indexOf('<button \n            className="rate-history-btn"');
@@ -42,3 +53,4 @@ if (badStart !== -1 && badEnd !== -1) {
 } else {
   console.log('Could not find indices', badStart, badEnd);
 }
+>>>>>>> cf617e9b9508798170cf833358d1880d48c2edcf
