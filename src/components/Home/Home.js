@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
+import { setRates } from '../../store/ratesSlice';
 import './Home.css';
 import Footer from '../Footer/Footer';
 
@@ -24,18 +27,10 @@ const TREND_MULTIPLIERS = {
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
 function Home() {
-  // Live rate states
-  const [rates, setRates] = useState(DEFAULT_RATES);
-  
-  // Simulator toggle & form state
-  
-  // Modal state
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('gold22k'); // gold22k, gold24k, gold18k, silver, platinum
-  
-  
-  // SVG Chart Tooltip State
-  const [hoveredPoint, setHoveredPoint] = useState(null);
+  // Redux state
+  const dispatch = useDispatch();
+  const rates = useSelector((state) => state.rates);
+  const { isSimOpen, isHistoryOpen, activeTab, hoveredPoint } = useSelector((state) => state.ui);
 
   // Auto-scroll to sections helper
   const scrollToSection = (id) => {
@@ -163,8 +158,8 @@ function Home() {
               stroke="var(--primary-color)" 
               strokeWidth="3"
               style={{ cursor: 'pointer' }}
-              onMouseEnter={() => setHoveredPoint(p)}
-              onMouseLeave={() => setHoveredPoint(null)}
+              onMouseEnter={() => dispatch(setHoveredPoint(p))}
+              onMouseLeave={() => dispatch(setHoveredPoint(null))}
             />
           </g>
         ))}
@@ -183,6 +178,42 @@ function Home() {
   return (
     <div className="App">
       
+      {/* 1. RATE BOARD BANNER (Matches user screenshot exactly at the absolute top) */}
+      <div id="rates" className="rate-board-container">
+        <div className="rate-board-wrapper">
+          <div className="rates-row">
+            <div className="rate-item">
+              <span className="rate-label">GOLD RATE 22k (1gm):</span>
+              <span className="rate-val">₹{rates.gold22k.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="rate-item">
+              <span className="rate-label">GOLD RATE 24k (1gm):</span>
+              <span className="rate-val">₹{rates.gold24k.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="rate-item">
+              <span className="rate-label">GOLD RATE 18k (1gm):</span>
+              <span className="rate-val">₹{rates.gold18k.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="rate-item">
+              <span className="rate-label">SILVER RATE (1gm):</span>
+              <span className="rate-val">₹{rates.silver.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="rate-item">
+              <span className="rate-label">PLATINUM (1gm):</span>
+              <span className="rate-val">₹{rates.platinum.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="updated-time-badge">
+              Last updated: <strong>{rates.lastUpdated}</strong>
+            </div>
+          </div>
+          <button 
+            className="rate-history-btn"
+            onClick={() => dispatch(setIsHistoryOpen(true))}
+          >
+            RATE HISTORY
+          </button>
+        </div>
+      </div>
 
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
@@ -514,6 +545,212 @@ function Home() {
         </div>
       </section>
 
+      {/* 6. FOOTER */}
+      <Footer scrollToSection={scrollToSection} />
+
+
+      {/* 7. LIVE RATES SIMULATOR PANEL */}
+      <button 
+        className="simulator-trigger"
+        onClick={() => dispatch(setIsSimOpen(!isSimOpen))}
+      >
+        <span>⚙</span> Live Rates Panel
+      </button>
+
+      {isSimOpen && (
+        <div className="simulator-panel">
+          <div className="simulator-header">
+            <span className="simulator-title">Rates Simulator</span>
+            <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => dispatch(setIsSimOpen(false))}>×</button>
+          </div>
+          
+          <div className="simulator-row">
+            <label className="simulator-label">Gold 22k (₹)</label>
+            <input 
+              type="number" 
+              className="simulator-input"
+              value={rates.gold22k}
+              onChange={(e) => dispatch(setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 }))}
+            />
+          </div>
+
+          <div className="simulator-row">
+            <label className="simulator-label">Gold 24k (₹)</label>
+            <input 
+              type="number" 
+              className="simulator-input"
+              value={rates.gold24k}
+              onChange={(e) => dispatch(setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 }))}
+            />
+          </div>
+
+          <div className="simulator-row">
+            <label className="simulator-label">Gold 18k (₹)</label>
+            <input 
+              type="number" 
+              className="simulator-input"
+              value={rates.gold18k}
+              onChange={(e) => dispatch(setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 }))}
+            />
+          </div>
+
+          <div className="simulator-row">
+            <label className="simulator-label">Silver (₹)</label>
+            <input 
+              type="number" 
+              className="simulator-input"
+              value={rates.silver}
+              onChange={(e) => dispatch(setRates({ ...rates, silver: parseInt(e.target.value) || 0 }))}
+            />
+          </div>
+
+          <div className="simulator-row">
+            <label className="simulator-label">Platinum (₹)</label>
+            <input 
+              type="number" 
+              className="simulator-input"
+              value={rates.platinum}
+              onChange={(e) => dispatch(setRates({ ...rates, platinum: parseInt(e.target.value) || 0 }))}
+            />
+          </div>
+
+          <div className="simulator-row">
+            <label className="simulator-label">Last Updated</label>
+            <input 
+              type="text" 
+              className="simulator-input"
+              style={{ width: '150px' }}
+              value={rates.lastUpdated}
+              onChange={(e) => dispatch(setRates({ ...rates, lastUpdated: e.target.value }))}
+            />
+          </div>
+
+          <button 
+            className="simulator-reset-btn"
+            onClick={() => dispatch(setRates(DEFAULT_RATES))}
+          >
+            Reset to Reference Screenshot Rates
+          </button>
+        </div>
+      )}
+
+      {/* 8. RATE HISTORY MODAL */}
+      {isHistoryOpen && (
+        <div className="modal-overlay" onClick={() => dispatch(setIsHistoryOpen(false))}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            
+            <div className="modal-header">
+              <h2 className="modal-title">Live Rate Trends & History</h2>
+              <button 
+                className="modal-close-btn"
+                onClick={() => dispatch(setIsHistoryOpen(false))}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="modal-body">
+              {/* Tab Selector */}
+              <div className="modal-tabs">
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold22k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold22k'))}
+                >
+                  Gold 22K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold24k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold24k'))}
+                >
+                  Gold 24K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'gold18k' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('gold18k'))}
+                >
+                  Gold 18K
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'silver' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('silver'))}
+                >
+                  Silver
+                </button>
+                <button 
+                  className={`modal-tab-btn ${activeTab === 'platinum' ? 'active' : ''}`}
+                  onClick={() => dispatch(setActiveTab('platinum'))}
+                >
+                  Platinum
+                </button>
+              </div>
+
+              {/* Chart Visualizer */}
+              <div className="chart-section">
+                <h3 className="chart-title">7-Day Trend Chart</h3>
+                
+                <div className="chart-svg-container">
+                  {renderChart()}
+
+                  {/* SVG Tooltip */}
+                  {hoveredPoint && (
+                    <div 
+                      className="chart-tooltip-bubble"
+                      style={{ 
+                        left: `${(hoveredPoint.x / 560) * 100}%`, 
+                        top: `${(hoveredPoint.y / 180) * 100}%` 
+                      }}
+                    >
+                      <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{hoveredPoint.date}</span>
+                      <span>₹{hoveredPoint.rate.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+                </div>
+                
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1rem', fontStyle: 'italic' }}>
+                  💡 Hover over trend nodes to see details. Trends generated relative to current live values.
+                </p>
+              </div>
+
+              {/* History Table */}
+              <div className="table-section">
+                <h3 className="table-title">Daily Rates Log</h3>
+                <div className="history-table-wrapper">
+                  <table className="history-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Rate (per 1gm)</th>
+                        <th>Daily Change</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {historyData.slice().reverse().map((d, index) => (
+                        <tr key={index}>
+                          <td style={{ fontWeight: 600 }}>{d.date}</td>
+                          <td style={{ fontWeight: 700, color: 'var(--primary-color)' }}>
+                            ₹{d.rate.toLocaleString('en-IN')}
+                          </td>
+                          <td>
+                            {d.change === 0 ? (
+                              <span style={{ color: 'var(--text-muted)' }}>-</span>
+                            ) : d.change > 0 ? (
+                              <span className="trend-up">▲ +₹{d.change.toLocaleString('en-IN')}</span>
+                            ) : (
+                              <span className="trend-down">▼ -₹{Math.abs(d.change).toLocaleString('en-IN')}</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );
