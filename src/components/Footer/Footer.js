@@ -20,7 +20,8 @@ function Footer({ scrollToSection }) {
           <h4 className="footer-new-title">Let us help you</h4>
           <ul className="footer-new-links">
             <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">FAQ</button></li>
-            <li><button onClick={() => scrollToSection('footer')} className="footer-new-link">Contaact / enquiry form</button></li>
+            <li><a href="/contact-us" className="footer-new-link">Contact Us</a></li>
+            <li><a href="/enquiry-form" className="footer-new-link">Enquiry Form</a></li>
             <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Bangle size Guide</button></li>
           </ul>
         </div>

@@ -215,82 +215,6 @@ function Home() {
         </div>
       </div>
 
-      {/* 2. NAVIGATION BAR (Sticky navigation below the rate board) */}
-      <header className="main-header">
-        {/* Top Utility Bar */}
-        <div className="top-utility-bar">
-          <div className="utility-left">
-            <button onClick={() => scrollToSection('footer')} className="utility-link bold-link">CONTACT US | ENQUIRY FORM</button>
-            <button onClick={() => scrollToSection('footer')} className="utility-link bold-link">STORE LOCATOR</button>
-          </div>
-          <div className="utility-right">
-            <button onClick={() => scrollToSection('rates')} className="utility-link">AUSPICIOUS DAYS</button>
-            <button onClick={() => scrollToSection('calculator')} className="utility-link scheme-btn">SAVING SCHEME PAYMENT</button>
-            <button onClick={() => scrollToSection('collections')} className="utility-link">BLOG</button>
-            <button onClick={() => scrollToSection('calculator')} className="utility-link">CREATE AN ACCOUNT</button>
-          </div>
-        </div>
-
-        {/* Main Navbar */}
-        <nav className="navbar-new">
-          <div className="navbar-left">
-            <img src="/image/jewel-logo.png" alt="Jewel Logo" className="jewel-logo-img" />
-            <div className="virtual-shopping" onClick={() => scrollToSection('footer')}>
-              <svg className="virtual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
-                <path d="M22 8l-6 4 6 4V8z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>VIRTUAL SHOPPING</span>
-            </div>
-          </div>
-
-          <div className="navbar-center">
-            <div className="search-bar-container">
-              <input type="text" placeholder="Search..." className="search-input" />
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          </div>
-
-          <div className="navbar-right">
-            <div className="contact-phone">
-              <svg className="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <div className="phone-details">
-                <span className="phone-number">+1234 567 8900</span>
-                <span className="phone-hours">10AM to 6PM IST</span>
-              </div>
-            </div>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('calculator')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span>LOGIN</span>
-            </button>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('collections')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>WISHLIST</span>
-            </button>
-
-            <button className="nav-action-item" onClick={() => scrollToSection('calculator')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" strokeLinecap="round" strokeLinejoin="round" />
-                <line x1="3" y1="6" x2="21" y2="6" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M16 10a4 4 0 0 1-8 0" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>CART</span>
-            </button>
-          </div>
-        </nav>
-      </header>
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
       <header id="hero" className="hero-banner-section" onClick={() => scrollToSection('calculator')}>
@@ -304,25 +228,50 @@ function Home() {
       {/* 4. BRAND FEATURES SECTION */}
       <section className="features-section">
         <div className="features-container">
-          <div className="feature-item">
-            <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
-            <span className="feature-text">Listed Company</span>
+          <div className="features-scroll-track">
+            <div className="feature-item">
+              <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
+              <span className="feature-text">Listed Company</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
+              <span className="feature-text">Best Price</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
+              <span className="feature-text">Secure Retail</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
+              <span className="feature-text">100% Refund</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
+              <span className="feature-text">15 Days Return</span>
+            </div>
           </div>
-          <div className="feature-item">
-            <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
-            <span className="feature-text">Best Price</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
-            <span className="feature-text">Secure Retail</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
-            <span className="feature-text">100% Refund</span>
-          </div>
-          <div className="feature-item">
-            <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
-            <span className="feature-text">15 Days Return</span>
+          {/* Duplicated for seamless mobile marquee */}
+          <div className="features-scroll-track duplicate-features">
+            <div className="feature-item">
+              <img src="/image/page-2.1.png" alt="Listed Company" className="feature-icon-img" />
+              <span className="feature-text">Listed Company</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.2.png" alt="Best Price" className="feature-icon-img" />
+              <span className="feature-text">Best Price</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.3.png" alt="Secure Retail" className="feature-icon-img" />
+              <span className="feature-text">Secure Retail</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.4.png" alt="100% Refund" className="feature-icon-img" />
+              <span className="feature-text">100% Refund</span>
+            </div>
+            <div className="feature-item">
+              <img src="/image/page-2.5.png" alt="15 Days Return" className="feature-icon-img" />
+              <span className="feature-text">15 Days Return</span>
+            </div>
           </div>
         </div>
       </section>
