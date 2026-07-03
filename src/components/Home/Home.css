@@ -28,9 +28,6 @@
    Luxury Navigation Header (Two-row Premium Navbar)
 ---------------------------------------------------- */
 .main-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
   box-shadow: var(--shadow-sm);
   background-color: #eaeaea; /* Unified premium light-gray background */
   border-bottom: 1px solid rgba(128, 0, 0, 0.1);
@@ -73,14 +70,16 @@
 
 .utility-link.bold-link {
   font-size: 0.84rem;
-  font-weight: 800; /* Extra bold for Contact & Locator */
+  font-weight: 900; /* Maximum bold */
+  -webkit-text-stroke: 0.5px #800000; /* Extra thickness */
 }
 
 .utility-link.scheme-btn {
   border: 1px solid #800000;
   padding: 0.3rem 0.8rem;
-  font-weight: 800;
+  font-weight: 900; /* Maximum bold */
   font-size: 0.78rem;
+  -webkit-text-stroke: 0.5px #800000; /* Extra thickness */
   transition: all 0.2s ease;
 }
 
@@ -96,7 +95,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 5% 1.5rem 5%; /* Increased padding to increase navbar height */
+  padding: 1.2rem 5% 1.5rem 5%; /* Increased padding to increase navbar height */
   background-color: #eaeaea; /* Same unified background */
+}
+
+.mobile-hamburger-icon {
+  display: none; /* Hidden on desktop */
+  width: 28px;
+  height: 28px;
+  stroke: #1c1917; /* Dark icon */
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .navbar-left {
@@ -237,6 +246,22 @@
   stroke: currentColor;
 }
 
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #f75d59; /* Red/pink badge */
+  color: white;
+  font-size: 0.6rem;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-action-item span {
   font-size: 0.7rem;
   font-weight: 800; /* Extra bold matching user screenshot */
@@ -244,12 +269,81 @@
   letter-spacing: 0.5px;
 }
 
+/* Mini Cart Dropdown */
+.cart-dropdown-container {
+  position: relative;
+}
+
+.mini-cart-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  margin-top: 15px;
+  padding: 1.5rem;
+  cursor: default;
+  text-align: left;
+}
+
+/* Small triangle pointer for dropdown */
+.mini-cart-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-left: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  transform: rotate(45deg);
+}
+
+.mini-cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.mini-cart-count {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1a2a3a;
+}
+
+.mini-cart-view-btn {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #2b6aa6;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mini-cart-view-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.mini-cart-body p {
+  color: #1a2a3a;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 /* ----------------------------------------------------
    Live Rate Board (Maroon Banner)
 ---------------------------------------------------- */
 .rate-board-container {
   background-color: #800000; /* Solid deep maroon */
-  padding: 3rem 2rem;
+  padding: 1.5rem 2rem; /* Reduced top/bottom padding from 3rem to 1.5rem */
   color: var(--text-light);
   font-family: var(--font-sans);
   position: relative;
@@ -259,20 +353,21 @@
 }
 
 .rate-board-wrapper {
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem; /* Reduced gap from 1.5rem to 0.75rem */
 }
 
 .rates-row {
   display: flex;
   flex-wrap: nowrap; /* Force all items on a single horizontal row */
-  justify-content: center; /* Center items on wide screens where they fit */
+  justify-content: flex-start; /* Align left to prevent clipping */
   align-items: center;
-  gap: 1.5rem 2.5rem; /* Spacious gap like reference screenshot */
+  gap: 1rem 1.5rem; /* Reduced gap to fit more items */
   width: 100%;
   overflow-x: auto; /* Enable horizontal scrolling on small screens */
   padding: 0.5rem 1.5rem;
@@ -283,6 +378,18 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+.rates-content {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding-right: 1.5rem; /* Gap at the end to match spacing between items */
+}
+
+.duplicate-content {
+  display: none; /* Hidden on desktop */
+}
+
 .rates-row::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
@@ -290,7 +397,7 @@
 .rate-item {
   display: flex;
   align-items: center;
-  font-size: 0.95rem; /* Large and bold as in screenshot */
+  font-size: 0.85rem; /* Slightly increased text size */
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -306,16 +413,16 @@
 .rate-val {
   color: #ffff00; /* Bright yellow */
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 0.9rem; /* Slightly increased text size */
 }
 
 .updated-time-badge {
   background-color: #ffffff;
   color: #800000; /* Maroon label */
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem; /* Slightly reduced padding */
   border-radius: 0px; /* Sharp rectangle */
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* Slightly increased text size */
   display: inline-flex;
   align-items: center;
   border: none;
@@ -383,7 +490,8 @@
   border-radius: 0px; /* Sharp rectangle */
   transition: var(--transition);
   border: none;
-  margin-top: 1rem;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .rate-history-btn:hover {
@@ -430,8 +538,20 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.features-scroll-track {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   gap: 2.5rem;
+  width: 100%;
+}
+
+.features-scroll-track.duplicate-features {
+  display: none;
 }
 
 .feature-item {
@@ -702,12 +822,24 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .testimonial-card {
+    width: 65%;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 480px) {
   .just-arrived-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
 }
 
@@ -1010,10 +1142,12 @@
 }
 
 .testimonial-img {
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
   height: auto;
   display: block;
   object-fit: cover;
+  border-radius: 16px;
 }
 
 /* Responsive Breakpoints for Testimonials */
@@ -1604,14 +1738,102 @@
 
 /* â”€â”€ Mobile M: â‰¤ 480px â”€â”€ */
 @media (max-width: 480px) {
-  /* Rate board: scrollable strip */
+  /* Rate board: marquee strip */
   .rate-board-container {
-    padding: 0.6rem 3%;
-    overflow-x: auto;
+    padding: 0.6rem 0;
+    overflow: hidden;
+    white-space: nowrap;
   }
-  .rates-row { flex-wrap: nowrap; gap: 0.6rem; }
+  .rate-board-wrapper {
+    overflow: hidden;
+  }
+  .rates-row { 
+    display: inline-flex;
+    flex-wrap: nowrap; 
+    gap: 0; /* Let padding-right of rates-content handle the gap */
+    width: max-content;
+    animation: marqueeScroll 25s linear infinite;
+  }
+  .rates-row:active {
+    animation-play-state: paused;
+  }
+  .duplicate-content {
+    display: flex;
+  }
   .rate-item { flex-shrink: 0; font-size: 0.78rem; }
-  .updated-time-badge { font-size: 0.72rem; }
+  .updated-time-badge { flex-shrink: 0; font-size: 0.72rem; }
+
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Navbar Mobile Layout */
+  .navbar-new {
+    padding: 0.6rem 3%;
+    justify-content: flex-start; /* Group items starting from left */
+    gap: 0.5rem;
+  }
+  .mobile-hamburger-icon {
+    display: block; /* Show hamburger on mobile */
+    margin-right: 0;
+  }
+  .jewel-logo-img {
+    width: auto;
+    height: 32px; /* Scale down logo */
+    margin-right: 0; /* Remove auto margin */
+  }
+  .navbar-left {
+    gap: 0.5rem;
+    flex: 0 0 auto;
+  }
+  .virtual-shopping {
+    gap: 0;
+  }
+  .virtual-shopping span {
+    display: none; /* Hide text, keep icon */
+  }
+  .navbar-center {
+    flex: 0 0 auto;
+    margin: 0 0.25rem;
+  }
+  .search-input {
+    display: none; /* Hide search input */
+  }
+  .search-bar-container {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+  }
+  .search-icon {
+    right: 0;
+    stroke: #800000;
+    width: 24px;
+    height: 24px;
+  }
+  .navbar-right {
+    gap: 0.75rem;
+    margin-left: auto; /* Push Login, Wishlist, Cart to the right edge */
+  }
+  .contact-phone {
+    display: none; /* Hide phone on mobile */
+  }
+  .nav-action-item {
+    gap: 0.15rem;
+  }
+  .nav-action-item span {
+    font-size: 0.6rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: 0;
+  }
+  .action-icon {
+    width: 22px;
+    height: 22px;
+  }
 
   /* Hero */
   .hero-title { font-size: 2.2rem; line-height: 1.2; }
@@ -1624,12 +1846,12 @@
   .section-header-left { margin-bottom: 1.5rem; }
   .section-header-center { margin-bottom: 1.5rem; }
 
-  /* Featured products: 1 col on small mobile */
-  .featured-products-grid { grid-template-columns: 1fr; }
+  /* Featured products: 2 col on small mobile */
+  .featured-products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
   .product-card-img { height: 220px; }
 
-  /* Categories: 1 col on small mobile */
-  .categories-grid { grid-template-columns: 1fr; }
+  /* Categories: 2 col on small mobile */
+  .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
   .category-card-img { height: 200px; }
 
   /* Section spacing */
@@ -1641,14 +1863,36 @@
   .calculator-form-container { padding: 1.5rem; }
   .calculator-results-container { padding: 1.5rem; }
 
-  /* Simulator */
-  .simulator-trigger { padding: 0.6rem 1rem; font-size: 0.78rem; bottom: 1rem; right: 1rem; }
-  .simulator-panel { bottom: 4.5rem; right: 0.75rem; width: calc(100vw - 1.5rem); }
+
 
   /* Modal */
   .modal-title { font-size: 1.3rem; }
   .modal-tabs { gap: 0.35rem; }
   .modal-tab-btn { padding: 0.4rem 0.75rem; font-size: 0.75rem; }
+
+  /* Feature marquee on mobile (move 2 by 2) */
+  .features-container {
+    justify-content: flex-start;
+    gap: 0;
+  }
+  .features-scroll-track {
+    width: max-content;
+    justify-content: flex-start;
+    animation: featuresMarquee 15s linear infinite;
+    gap: 0;
+  }
+  .features-scroll-track.duplicate-features {
+    display: flex;
+  }
+  .feature-item {
+    width: 50vw; /* Show 2 items at a time (2 by 2) */
+    min-width: 50vw;
+    flex: 0 0 50vw;
+  }
+  @keyframes featuresMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
 }
 
 /* â”€â”€ Mobile S: â‰¤ 360px â”€â”€ */

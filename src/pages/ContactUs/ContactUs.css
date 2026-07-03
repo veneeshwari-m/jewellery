@@ -1,0 +1,177 @@
+.contact-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 3rem 0;
+  font-family: var(--font-sans, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.contact-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-title {
+  color: #777;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.contact-title strong {
+  color: #555;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.required {
+  color: #d32f2f;
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: inherit;
+  width: 100%;
+}
+
+.form-input.active-input {
+  border-color: #800000;
+}
+
+.form-input:focus {
+  border-color: #800000;
+}
+
+.select-input {
+  color: #555;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #990000;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background-color: #800000;
+}
+
+.textarea-group {
+  margin-top: 3.5rem;
+}
+
+.textarea-group textarea {
+  resize: vertical;
+}
+
+.file-group {
+  margin-top: 1rem;
+}
+
+.file-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.file-input {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.file-input::file-selector-button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  color: #333;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.file-input::file-selector-button:hover {
+  background-color: #eee;
+}
+
+.contact-detail-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.contact-icon {
+  background-color: #990000;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.primary-text {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.secondary-text {
+  color: #777;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .textarea-group {
+    margin-top: 0;
+  }
+}
