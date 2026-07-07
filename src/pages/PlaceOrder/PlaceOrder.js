@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { placeOrder } from '../../store/userSlice';
 import './PlaceOrder.css';
 
 const PlaceOrder = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
-  // Get product from location state, or use a default one for direct visits
   const product = location.state?.product || {
     title: "Elegant Crown Kids Gold Bangles",
     price: "₹75,850.23",
@@ -25,6 +27,8 @@ const PlaceOrder = () => {
     paymentMethod: 'card'
   });
 
+  const [showPopup, setShowPopup] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -32,8 +36,12 @@ const PlaceOrder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Pass form data (like name, email, payment method) to success page
-    navigate('/order-success', { state: formData });
+    dispatch(placeOrder({
+      items: [product],
+      total: product.price,
+      shipping: formData
+    }));
+    setShowPopup(true);
   };
 
   return (
@@ -162,6 +170,22 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
+      
+      {showPopup && (
+        <div className="order-popup-overlay">
+          <div className="order-popup-content">
+            <div className="success-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for your purchase, {formData.firstName}. Your order has been confirmed.</p>
+            <button className="continue-btn" onClick={() => navigate('/')}>Continue Shopping</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -14,7 +14,9 @@ const RateHistory = () => {
       
       <div className="rh-content">
         <div className="rh-card">
-          <button className="rh-reset-btn">RESET MY PASSWORD</button>
+          <div className="rh-last-updated">
+            Last updated Time: <strong>06/05/26 3:54 PM</strong>
+          </div>
           
           <div className="rh-grid">
             <div className="rh-item">

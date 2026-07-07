@@ -257,11 +257,16 @@
   margin-top: 1rem;
 }
 
+.pdp-whatsapp > span {
+  white-space: nowrap;
+}
+
 .pdp-whatsapp-contact {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .pdp-whatsapp-contact svg {
@@ -381,4 +386,20 @@
   color: #555;
   line-height: 1.6;
   max-width: 1000px;
+}
+
+@media (max-width: 768px) {
+  .pdp-buy-now,
+  .pdp-add-to-cart,
+  .pdp-add-to-wishlist,
+  .pdp-check-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+  }
+  .pdp-policy-tab {
+    font-size: 0.65rem;
+  }
+  .pdp-policy-tab.active {
+    padding: 0.4rem 1rem;
+  }
 }

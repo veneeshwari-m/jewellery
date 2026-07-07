@@ -96,17 +96,17 @@
 
 .menu-tab {
   background-color: #f7f7f7;
-  color: #a01a1a;
+  color: #7b1e3e;
 }
 
 .menu-tab svg {
   width: 16px;
   height: 16px;
-  stroke: #a01a1a;
+  stroke: #7b1e3e;
 }
 
 .account-tab {
-  background-color: #a01a1a;
+  background-color: #7b1e3e;
   color: #ffffff;
 }
 

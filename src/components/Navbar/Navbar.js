@@ -178,9 +178,8 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                   key={index} 
                   className="mobile-menu-item"
                   onClick={() => {
-                    if (item.label === 'HOME') {
-                      navigate('/');
-                    }
+                    const slug = item.label === 'HOME' ? '/' : `/category/${item.label.toLowerCase().replace(/\s+/g, '-')}`;
+                    navigate(slug);
                     setIsMobileMenuOpen(false);
                   }}
                 >
