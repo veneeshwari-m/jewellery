@@ -1,0 +1,280 @@
+.corporate-gov-page {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+
+.corporate-gov-hero {
+  position: relative;
+  min-height: 400px;
+  background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+}
+
+.corporate-gov-content-section {
+  max-width: 1100px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.corporate-gov-title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.corporate-gov-subtitle {
+  font-size: 2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.corporate-gov-text-block {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  text-align: justify;
+}
+
+.corporate-gov-text-block p {
+  margin-bottom: 1.5rem;
+}
+
+.drop-cap {
+  float: left;
+  font-size: 4rem;
+  line-height: 3.5rem;
+  padding-top: 0.2rem;
+  padding-right: 0.5rem;
+  padding-left: 0.1rem;
+  color: #4a4a4a;
+  font-family: Georgia, serif;
+}
+
+.internal-policy-section {
+  background-color: #fcfcfc;
+  padding: 4rem 2rem 6rem;
+  margin-top: 2rem;
+}
+
+.internal-policy-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.internal-policy-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.policy-card {
+  background: white;
+  flex: 1 1 300px;
+  max-width: 380px;
+  padding: 2.5rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.policy-icon {
+  color: #6c7a89;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.policy-card-title {
+  font-size: 1.25rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.policy-card-text {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.code-of-conduct-section {
+  background-color: #f7f9fa;
+  padding: 4rem 2rem;
+}
+
+.code-of-conduct-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.code-of-conduct-left {
+  flex: 1 1 500px;
+}
+
+.code-of-conduct-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.code-of-conduct-text {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+.code-of-conduct-list {
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 2;
+  padding-left: 1.5rem;
+}
+
+.code-of-conduct-list li {
+  margin-bottom: 0.5rem;
+}
+
+.code-of-conduct-right {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.code-of-conduct-image-wrapper {
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  max-width: 350px;
+}
+
+.code-of-conduct-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.code-of-conduct-image-caption {
+  text-align: center;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.board-commitments-section {
+  background-color: white;
+  padding: 4rem 2rem 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.board-commitments-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.board-commitments-content {
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.commitment-block {
+  margin-bottom: 2rem;
+}
+
+.commitment-block strong {
+  color: #2c3e50;
+  font-size: 1.15rem;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.commitment-sublist {
+  padding-left: 2rem;
+  list-style: none;
+}
+
+.commitment-sublist li {
+  margin-bottom: 0.5rem;
+}
+
+.commitment-paragraph p {
+  margin-bottom: 1.5rem;
+}
+
+.commitment-numbered-list {
+  padding-left: 1rem;
+  list-style: none;
+}
+
+.commitment-numbered-list li {
+  margin-bottom: 0.5rem;
+}
+
+.corporate-gov-final-paragraph {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  padding-bottom: 4rem;
+}
+
+@media (max-width: 768px) {
+  .corporate-gov-hero-content {
+    height: 150px;
+  }
+  .corporate-gov-hero-title {
+    font-size: 2rem;
+  }
+  .corporate-gov-content-section, .code-of-conduct-section, .board-commitments-section {
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+  }
+  .corporate-gov-title, .code-of-conduct-title, .board-commitments-title {
+    font-size: 1.75rem;
+  }
+  .policy-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .code-of-conduct-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .code-of-conduct-left {
+    flex: 1 1 auto;
+  }
+  .board-commitments-content {
+    font-size: 0.95rem;
+  }
+  .corporate-gov-final-paragraph {
+    padding: 0 1rem 2rem;
+    font-size: 0.95rem;
+  }
+}

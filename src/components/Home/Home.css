@@ -94,9 +94,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 5% 1.5rem 5%; /* Increased padding to increase navbar height */
-  padding: 1.2rem 5% 1.5rem 5%; /* Increased padding to increase navbar height */
-  background-color: #eaeaea; /* Same unified background */
+  padding: 0.6rem 5%;
+  background-color: #eaeaea; /* Unified premium light-gray background */
+  color: #1c1917; /* Dark text/icons */
+  overflow: visible;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Subtle border matching screenshot */
 }
 
 .mobile-hamburger-icon {
@@ -115,12 +117,20 @@
 }
 
 .jewel-logo-img {
-  width: 58px; /* Slightly scaled up to match taller navbar height */
-  height: 58px;
+  width: 51px !important;
+  height: 45px !important;
+  min-width: 51px;
+  min-height: 45px;
   border-radius: 6px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  background-color: var(--primary-color);
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.jewel-logo-img:hover {
+  transform: scale(1.06);
 }
 
 .virtual-shopping {
@@ -265,7 +275,7 @@
 .nav-action-item span {
   font-size: 0.7rem;
   font-weight: 800; /* Extra bold matching user screenshot */
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.5px;
 }
 
@@ -274,68 +284,80 @@
   position: relative;
 }
 
+.cart-badge-count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #d81b60; /* Pink/magenta color matching user mockup */
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mini-cart-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
-  width: 320px;
+  width: 300px;
   background-color: #fff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 100;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 300;
   margin-top: 15px;
   padding: 1.5rem;
   cursor: default;
   text-align: left;
 }
 
-/* Small triangle pointer for dropdown */
+/* Remove triangle pointer to match mockup */
 .mini-cart-dropdown::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  right: 20px;
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  border-left: 1px solid #e0e0e0;
-  border-top: 1px solid #e0e0e0;
-  transform: rotate(45deg);
+  display: none;
 }
 
 .mini-cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #bbb;
   padding-bottom: 1.25rem;
   margin-bottom: 1.25rem;
 }
 
 .mini-cart-count {
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   font-weight: 800;
-  color: #1a2a3a;
+  color: #000;
+  letter-spacing: 0.5px;
 }
 
 .mini-cart-view-btn {
   background-color: #fff;
-  border: 1px solid #ccc;
-  color: #2b6aa6;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  border: 1px solid #999;
+  color: #555;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .mini-cart-view-btn:hover {
-  background-color: #f5f5f5;
+  background-color: #f7f7f7;
+  border-color: #666;
+  color: #333;
 }
 
 .mini-cart-body p {
-  color: #1a2a3a;
-  font-size: 0.95rem;
-  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0 0;
 }
 
 /* ----------------------------------------------------
@@ -384,6 +406,7 @@
   align-items: center;
   gap: 1rem 1.5rem;
   padding-right: 1.5rem; /* Gap at the end to match spacing between items */
+  width: 100%;
 }
 
 .duplicate-content {
@@ -428,6 +451,7 @@
   border: none;
   white-space: nowrap;
   flex-shrink: 0; /* Protect from being squeezed */
+  margin-left: auto; /* Push to the right on desktop */
 }
 
 /* Media Query to safely scale down and fit on laptops to prevent cut-offs */
@@ -717,7 +741,7 @@
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   width: 100%;
 }
@@ -1129,25 +1153,23 @@
 .testimonial-card {
   width: 100%;
   overflow: hidden;
-  border-radius: 20px; /* Smooth rounded corners matching the mockup cards */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
   cursor: pointer;
-  background-color: transparent;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .testimonial-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .testimonial-img {
-  width: 70%;
+  width: 100% !important;
   margin: 0 auto;
   height: auto;
   display: block;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 /* Responsive Breakpoints for Testimonials */
@@ -1760,8 +1782,11 @@
   .duplicate-content {
     display: flex;
   }
+  .rates-content {
+    width: auto;
+  }
   .rate-item { flex-shrink: 0; font-size: 0.78rem; }
-  .updated-time-badge { flex-shrink: 0; font-size: 0.72rem; }
+  .updated-time-badge { flex-shrink: 0; font-size: 0.72rem; margin-left: 0; }
 
   @keyframes marqueeScroll {
     0% { transform: translateX(0); }
@@ -1780,8 +1805,8 @@
   }
   .jewel-logo-img {
     width: auto;
-    height: 32px; /* Scale down logo */
-    margin-right: 0; /* Remove auto margin */
+    height: 48px; /* Scale down logo on mobile */
+    margin-right: 0;
   }
   .navbar-left {
     gap: 0.5rem;
@@ -1902,4 +1927,14 @@
   .section-container { padding: 1.75rem 3% 2rem; }
   .featured-products-grid { gap: 0.75rem; }
   .categories-grid { gap: 0.75rem; }
+}
+
+.category-label {
+  margin-top: 1rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #444;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-transform: uppercase;
 }

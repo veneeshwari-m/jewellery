@@ -1,5 +1,5 @@
 .category-navbar {
-  background-color: #800000;
+  background: linear-gradient(180deg, var(--primary-color) 0%, #2b0213 100%);
   width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   position: sticky;
@@ -15,8 +15,6 @@
   justify-content: flex-start; /* Align items to the left */
   gap: 1.5rem;
   padding: 0.8rem 3rem; /* Add some padding to push it slightly inwards from the edge */
-  overflow-x: auto;
-  white-space: nowrap;
 }
 
 .category-navbar-container::-webkit-scrollbar {
@@ -36,7 +34,8 @@
   transition: opacity 0.2s ease;
 }
 
-.category-nav-item:hover {
+.category-nav-item:hover > span,
+.category-nav-item:hover > svg.dropdown-arrow {
   opacity: 0.8;
 }
 
@@ -140,6 +139,100 @@
   height: 16px;
   stroke: #888888;
 }
+
+/* --- Mega Menu Styles --- */
+.category-nav-item {
+  position: relative;
+}
+
+.category-nav-item:hover {
+  z-index: 302;
+}
+
+.category-navbar {
+  position: relative;
+}
+
+.mega-menu.centered-mega-menu {
+  display: block; /* Shown by JS */
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 2.5rem;
+  z-index: 300;
+  margin-top: 15px; /* space for arrow */
+  cursor: default;
+}
+
+/* Invisible bridge */
+.mega-menu.centered-mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: transparent;
+}
+
+.mega-menu-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; 
+  height: 0; 
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #ffffff;
+  z-index: 301;
+}
+
+.mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 5), 155px);
+  gap: 2rem 1.5rem; /* row-gap, col-gap */
+}
+
+.mega-menu-item {
+  width: 155px; /* Fixed width to match original grid size */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.mega-menu-img-container {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.mega-menu-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mega-menu-item:hover .mega-menu-img-container img {
+  transform: scale(1.05);
+}
+
+.mega-menu-text {
+  color: #333333;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 
 /* Hide desktop navbar on small screens if we are using the hamburger menu instead */
 @media (max-width: 768px) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setIsSimOpen, setIsHistoryOpen, setActiveTab, setHoveredPoint } from '../../store/uiSlice';
 import { setRates } from '../../store/ratesSlice';
 import './Home.css';
@@ -28,6 +29,7 @@ const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 function Home() {
   // Redux state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const rates = useSelector((state) => state.rates);
   const { isSimOpen, isHistoryOpen, activeTab, hoveredPoint } = useSelector((state) => state.ui);
 
@@ -242,7 +244,7 @@ function Home() {
         </div>
         
         <div className="featured-products-grid">
-          <div className="featured-product-card" onClick={() => scrollToSection('calculator')}>
+          <div className="featured-product-card" onClick={() => { window.scrollTo(0, 0); navigate('/product/feat-1', { state: { product: { id: 'feat-1', title: 'Featured Gold Bangle', image: 'page-3.1.jpg', price: '₹ 57,994.15' } } }); }}>
             <div className="product-image-container">
               <img src="/image/page-3.1.jpg" alt="Featured Gold Bangle" className="product-image" />
             </div>
@@ -252,7 +254,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="featured-product-card" onClick={() => scrollToSection('calculator')}>
+          <div className="featured-product-card" onClick={() => { window.scrollTo(0, 0); navigate('/product/feat-2', { state: { product: { id: 'feat-2', title: 'Featured Solitaire Ring', image: 'page-3.2.jpg', price: '₹ 81,351.46' } } }); }}>
             <div className="product-image-container">
               <img src="/image/page-3.2.jpg" alt="Featured Solitaire Ring" className="product-image" />
             </div>
@@ -262,7 +264,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="featured-product-card" onClick={() => scrollToSection('calculator')}>
+          <div className="featured-product-card" onClick={() => { window.scrollTo(0, 0); navigate('/product/feat-3', { state: { product: { id: 'feat-3', title: 'Featured Gold Earrings', image: 'page-3.3.jpg', price: '₹ 51,163.20' } } }); }}>
             <div className="product-image-container">
               <img src="/image/page-3.3.jpg" alt="Featured Gold Earrings" className="product-image" />
             </div>
@@ -272,7 +274,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="featured-product-card" onClick={() => scrollToSection('calculator')}>
+          <div className="featured-product-card" onClick={() => { window.scrollTo(0, 0); navigate('/product/feat-4', { state: { product: { id: 'feat-4', title: 'Featured Gold Pendant', image: 'page-3.4.jpg', price: '₹ 45,890.62' } } }); }}>
             <div className="product-image-container">
               <img src="/image/page-3.4.jpg" alt="Featured Gold Pendant" className="product-image" />
             </div>
@@ -284,27 +286,35 @@ function Home() {
         </div>
       </section>
 
-      {/* 6. BROWSE OUR CATEGORIES SECTION */}
+      {/* 6. SHOP BY CATEGORY SECTION */}
       <section id="categories" className="categories-section">
         <div className="categories-container">
           <div className="section-header-center">
             <span className="line"></span>
-            <h2 className="section-title-center">BROWSE OUR CATEGORIES</h2>
+            <h2 className="section-title-center">SHOP BY CATEGORY</h2>
             <span className="line"></span>
           </div>
           
           <div className="categories-grid">
-            <div className="category-card" onClick={() => scrollToSection('calculator')}>
-              <img src="/image/page-4.1.png" alt="Jhumka Earrings Category" className="category-image" />
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+              <img src="/image/page-4.1.png" alt="GOLD BANGLES" className="category-image" />
+              <p className="category-label">GOLD BANGLES</p>
             </div>
-            <div className="category-card" onClick={() => scrollToSection('calculator')}>
-              <img src="/image/page-4.2.jpg" alt="Rings Category" className="category-image" />
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+              <img src="/image/page-4.2.jpg" alt="GOLD MALAI" className="category-image" />
+              <p className="category-label">GOLD MALAI</p>
             </div>
-            <div className="category-card" onClick={() => scrollToSection('calculator')}>
-              <img src="/image/page-4.3.png" alt="Necklaces Category" className="category-image" />
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+              <img src="/image/page-4.3.png" alt="GOLD NECKLACE" className="category-image" />
+              <p className="category-label">GOLD NECKLACE</p>
             </div>
-            <div className="category-card" onClick={() => scrollToSection('calculator')}>
-              <img src="/image/page-4.4.png" alt="Bangles Category" className="category-image" />
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+              <img src="/image/page-4.4.png" alt="GOLD EARINGS" className="category-image" />
+              <p className="category-label">GOLD EARINGS</p>
+            </div>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+              <img src="/image/page-5.1.jpg" alt="GOLD PENDANT" className="category-image" />
+              <p className="category-label">GOLD PENDANT</p>
             </div>
           </div>
         </div>
@@ -468,7 +478,7 @@ function Home() {
           {/* Scheme 2 */}
           <div className="scheme-column">
             <div className="scheme-img-container">
-              <img src="/image/page-7.2.png" alt="Digi Gold Saving Scheme" className="scheme-main-img" />
+              <img src="/image/r-logo.png" alt="Digi Gold Saving Scheme" className="scheme-main-img" />
             </div>
             <div className="scheme-details">
               <h4 className="scheme-subtitle">DIGI GOLD SAVING SCHEME</h4>
@@ -496,10 +506,10 @@ function Home() {
         
         <div className="testimonials-grid">
           <div className="testimonial-card">
-            <img src="/image/page-8.1.png" alt="What People Are Saying - Review 1" className="testimonial-img" />
+            <img src="/image/l-review.png" alt="What People Are Saying - Review 1" className="testimonial-img" />
           </div>
           <div className="testimonial-card">
-            <img src="/image/page-8.2.png" alt="What People Are Saying - Review 2" className="testimonial-img" />
+            <img src="/image/r-review.png" alt="What People Are Saying - Review 2" className="testimonial-img" />
           </div>
         </div>
       </section>

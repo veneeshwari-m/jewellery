@@ -1,0 +1,305 @@
+.about-us-page {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+
+.about-hero-section {
+  position: relative;
+  min-height: 500px;
+  background: linear-gradient(135deg, rgba(0, 168, 143, 0.8) 0%, rgba(13, 71, 161, 0.9) 100%), 
+              url('https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+  padding-bottom: 20px;
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+}
+
+.about-logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: #ff9800; /* Matching the orange/gold bird logo hint */
+}
+
+.about-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about-nav-link {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.about-nav-link.active {
+  font-weight: 700;
+}
+
+.about-hero-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.about-hero-title {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.about-feature-cards {
+  position: relative;
+  margin-top: -120px;
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  z-index: 10;
+}
+
+.about-card {
+  background: white;
+  width: 280px;
+  min-height: 350px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+}
+
+.about-card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.about-card-desc {
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+  line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+  .about-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+  .about-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .about-feature-cards {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    margin-top: -50px;
+  }
+  .about-hero-title {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+}
+
+.about-story-section {
+  max-width: 1100px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.about-story-main-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.about-story-subtitle {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.about-story-content {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  text-align: justify;
+}
+
+.about-story-content p {
+  margin-bottom: 1.5rem;
+}
+
+.drop-cap {
+  float: left;
+  font-size: 4rem;
+  line-height: 3.5rem;
+  padding-top: 0.2rem;
+  padding-right: 0.5rem;
+  padding-left: 0.1rem;
+  color: #4a4a4a;
+  font-family: Georgia, serif;
+}
+
+.about-custom-footer {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4rem 2rem 2rem;
+  margin-top: 4rem;
+}
+
+.about-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.about-footer-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.about-footer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.about-footer-list li {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.about-footer-list a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.about-footer-list a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.about-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-newsletter label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-newsletter input {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.about-newsletter button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.about-newsletter button:hover {
+  background-color: #0056b3;
+}
+
+.about-footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .about-hero-title {
+    font-size: 2rem;
+  }
+  .about-story-main-title {
+    font-size: 2rem;
+  }
+  .about-story-section {
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .about-story-subtitle {
+    font-size: 1.25rem;
+  }
+  .about-story-content {
+    font-size: 0.95rem;
+  }
+  .about-custom-footer {
+    padding: 2rem 1rem 1rem;
+    margin-top: 2rem;
+  }
+  .about-footer-container {
+    gap: 1.5rem;
+  }
+  .drop-cap {
+    font-size: 3rem;
+    line-height: 2.5rem;
+  }
+}

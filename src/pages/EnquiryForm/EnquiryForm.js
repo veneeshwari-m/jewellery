@@ -77,7 +77,7 @@ const EnquiryForm = () => {
                 </svg>
               </div>
               <div className="contact-text">
-                <div className="primary-text">shop@thangamayil.com</div>
+                <div className="primary-text">shop@Thangam.com</div>
               </div>
             </div>
           </div>

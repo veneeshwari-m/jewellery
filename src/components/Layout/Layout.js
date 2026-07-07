@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import '../Home/Home.css';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
@@ -34,6 +35,9 @@ function Layout({ children }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   
+  const cartItemsCount = useSelector(state => state.cart.items.length);
+  const wishlistItemsCount = useSelector(state => state.wishlist.items.length);
+
   // SVG Chart Tooltip State
   const [hoveredPoint, setHoveredPoint] = useState(null);
 
@@ -210,14 +214,8 @@ function Layout({ children }) {
         <span className="rate-val">₹{rates.platinum.toLocaleString('en-IN')}</span>
       </div>
       <div className="updated-time-badge">
-        Last updated: <strong>{rates.lastUpdated}</strong>
+        Last updated Time: <strong>{rates.lastUpdated}</strong>
       </div>
-      <button 
-        className="rate-history-btn"
-        onClick={() => setIsHistoryOpen(true)}
-      >
-        RATE HISTORY
-      </button>
     </>
   );
 
@@ -236,6 +234,15 @@ function Layout({ children }) {
               {renderRateItems()}
             </div>
           </div>
+          <button 
+            className="rate-history-btn"
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate('/rate-history');
+            }}
+          >
+            RATE HISTORY
+          </button>
         </div>
       </div>
 
@@ -247,12 +254,9 @@ function Layout({ children }) {
             <button onClick={() => navigate('/contact-us')} className="utility-link bold-link">CONTACT US</button>
             <span style={{ color: '#ccc', margin: '0 8px' }}>|</span>
             <button onClick={() => navigate('/enquiry-form')} className="utility-link bold-link">ENQUIRY FORM</button>
-            <button onClick={() => scrollToSection('footer')} className="utility-link bold-link" style={{ marginLeft: '12px' }}>STORE LOCATOR</button>
+            <button onClick={() => navigate('/store-locator')} className="utility-link bold-link" style={{ marginLeft: '12px' }}>STORE LOCATOR</button>
           </div>
           <div className="utility-right">
-            <button onClick={() => scrollToSection('rates')} className="utility-link bold-link">AUSPICIOUS DAYS</button>
-            <button onClick={() => scrollToSection('calculator')} className="utility-link scheme-btn bold-link">SAVINGS SCHEME PAYMENT</button>
-            <button onClick={() => scrollToSection('collections')} className="utility-link bold-link">BLOG</button>
             <button onClick={() => navigate('/create-account')} className="utility-link bold-link">CREATE AN ACCOUNT</button>
           </div>
         </div>
@@ -275,19 +279,12 @@ function Layout({ children }) {
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
             <img 
-              src="/image/jewel-logo.png" 
+              src="/image/logo.png" 
               alt="Jewel Logo" 
               className="jewel-logo-img" 
               onClick={() => navigate('/')}
               style={{ cursor: 'pointer' }}
             />
-            <div className="virtual-shopping" onClick={() => scrollToSection('footer')}>
-              <svg className="virtual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
-                <path d="M22 8l-6 4 6 4V8z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>VIRTUAL SHOPPING</span>
-            </div>
           </div>
 
           <div className="navbar-center">
@@ -316,37 +313,52 @@ function Layout({ children }) {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <span>LOGIN</span>
+              <span>Login</span>
             </button>
 
-            <button className="nav-action-item" onClick={() => scrollToSection('collections')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>WISHLIST</span>
+            <button className="nav-action-item" onClick={() => navigate('/wishlist')}>
+              <div style={{ position: 'relative', display: 'inline-flex' }}>
+                <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="cart-badge-count">{wishlistItemsCount}</span>
+              </div>
+              <span>Wishlist</span>
             </button>
 
             <div className="cart-dropdown-container">
               <button className="nav-action-item" onClick={() => setIsCartOpen(!isCartOpen)}>
-                <div style={{ position: 'relative' }}>
+                <div style={{ position: 'relative', display: 'inline-flex' }}>
                   <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" strokeLinecap="round" strokeLinejoin="round" />
                     <line x1="3" y1="6" x2="21" y2="6" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M16 10a4 4 0 0 1-8 0" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span className="cart-badge">0</span>
+                  <span className="cart-badge-count">{cartItemsCount}</span>
                 </div>
-                <span>CART</span>
+                <span>Cart</span>
               </button>
 
               {isCartOpen && (
                 <div className="mini-cart-dropdown">
                   <div className="mini-cart-header">
-                    <span className="mini-cart-count">0 ITEM</span>
-                    <button className="mini-cart-view-btn">View Cart</button>
+                    <span className="mini-cart-count">{cartItemsCount} ITEM{cartItemsCount !== 1 && 'S'}</span>
+                    <button 
+                      className="mini-cart-view-btn" 
+                      onClick={() => {
+                        navigate('/cart');
+                        setIsCartOpen(false);
+                      }}
+                    >
+                      View Cart
+                    </button>
                   </div>
                   <div className="mini-cart-body">
-                    <p>You have no items in your shopping cart.</p>
+                    {cartItemsCount === 0 ? (
+                      <p>You have no items in your shopping cart.</p>
+                    ) : (
+                      <p>You have {cartItemsCount} item{cartItemsCount !== 1 && 's'} in your cart.</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -363,7 +375,7 @@ function Layout({ children }) {
       </main>
 
       {/* 6. FOOTER */}
-      <Footer scrollToSection={scrollToSection} />
+      {pathname !== '/about-us' && pathname !== '/corporate-governance' && <Footer scrollToSection={scrollToSection} />}
 
       {/* 8. RATE HISTORY MODAL */}
       {isHistoryOpen && (
