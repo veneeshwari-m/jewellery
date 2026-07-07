@@ -69,10 +69,15 @@ const ProductDetail = () => {
     }
   };
 
-  // Scroll to top on mount
+  // Reset active image when product changes
+  useEffect(() => {
+    setActiveImage(product.images[0]);
+  }, [product.productCode, product.images]);
+
+  // Scroll to top on mount or product change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [productId, location.key]);
 
   return (
     <div className="product-detail-page">

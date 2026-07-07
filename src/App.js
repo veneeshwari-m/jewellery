@@ -22,6 +22,8 @@ import NewsAndMedia from './pages/NewsAndMedia/NewsAndMedia';
 import BangleSizeGuide from './pages/BangleSizeGuide/BangleSizeGuide';
 import TermsConditions from './pages/TermsConditions/TermsConditions';
 import Wishlist from './pages/Wishlist/Wishlist';
+import Profile from './pages/Profile/Profile';
+import Orders from './pages/Orders/Orders';
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/bangle-size-guide" element={<BangleSizeGuide />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/category/:categoryId" element={<ProductList />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/rate-history" element={<RateHistory />} />

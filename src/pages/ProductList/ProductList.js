@@ -9,15 +9,18 @@ const categoryData = {
     description: 'Discover exquisite gold jewellery online with Thangam Jewels and enjoy a secure, hassle-free shopping experience with insured delivery. We offer a premium collection of beautifully crafted Gold Bangles, Bracelets, Chains, Necklaces, Rings, Earrings, Pendants, Haram, Malai, and other exclusive gold jewellery designs. Every piece is thoughtfully created with exceptional craftsmanship, elegant style, and trusted quality to make every special moment memorable.',
     sidebarList: ['Gold Bangles', 'Gold Malai', 'Gold Necklace', 'Gold Earrings', 'Gold Pendant', 'Gold Bracelet', 'Gold Ring', 'Gold Chain', 'Gold Nethicutti'],
     products: [
-      { id: 1, image: 'gold-1.jpg', weight: '3.13 gm', price: '₹ 57,994.15' },
-      { id: 2, image: 'gold-2.jpg', weight: '4.75 gm', price: '₹ 81,351.46' },
-      { id: 3, image: 'gold-3.jpg', weight: '3.07 gm', price: '₹ 51,163.20' },
-      { id: 4, image: 'gold-4.jpg', weight: '2.47 gm', price: '₹ 45,890.62' },
-      { id: 5, image: 'gold-5.jpg', weight: '2.47 gm', price: '₹ 45,890.62' },
-      { id: 6, image: 'gold-6.jpg', weight: '2.47 gm', price: '₹ 45,890.62' },
-      { id: 7, image: 'gold-7.jpg', weight: '4.15 gm', price: '₹ 72,120.00' },
-      { id: 8, image: 'gold-8.jpg', weight: '2.90 gm', price: '₹ 48,500.00' },
-      { id: 9, image: 'gold-9.jpg', weight: '5.60 gm', price: '₹ 94,800.00' },
+      { id: 1, image: 'gold-1.jpg', title: 'Elegant Gold Bangles', weight: '3.13 gm', price: '₹ 57,994.15' },
+      { id: 2, image: 'gold-2.jpg', title: 'Traditional Gold Malai', weight: '4.75 gm', price: '₹ 81,351.46' },
+      { id: 3, image: 'gold-3.jpg', title: 'Classic Gold Necklace', weight: '3.07 gm', price: '₹ 51,163.20' },
+      { id: 4, image: 'gold-4.jpg', title: 'Floral Gold Earrings', weight: '2.47 gm', price: '₹ 45,890.62' },
+      { id: 5, image: 'gold-5.jpg', title: 'Diamond Gold Pendant', weight: '2.47 gm', price: '₹ 45,890.62' },
+      { id: 6, image: 'gold-6.jpg', title: 'Simple Gold Bracelet', weight: '2.47 gm', price: '₹ 45,890.62' },
+      { id: 7, image: 'gold-7.jpg', title: 'Wedding Gold Ring', weight: '4.15 gm', price: '₹ 72,120.00' },
+      { id: 8, image: 'gold-8.jpg', title: 'Daily Wear Gold Chain', weight: '2.90 gm', price: '₹ 48,500.00' },
+      { id: 9, image: 'gold-9.jpg', title: 'Bridal Gold Nethicutti', weight: '5.60 gm', price: '₹ 94,800.00' },
+      { id: 10, image: 'gold-1.jpg', title: 'Premium Gold Bangles', weight: '4.50 gm', price: '₹ 85,000.00' },
+      { id: 11, image: 'gold-3.jpg', title: 'Modern Gold Necklace', weight: '5.20 gm', price: '₹ 95,000.00' },
+      { id: 12, image: 'gold-4.jpg', title: 'Stud Gold Earrings', weight: '1.50 gm', price: '₹ 25,000.00' },
     ]
   },
   'diamond': {
@@ -101,14 +104,17 @@ const FilterBlock = ({ title, children }) => {
 const ProductList = () => {
   const { categoryId } = useParams();
   const data = categoryData[categoryId] || categoryData['default'];
+  const [activeSubCategory, setActiveSubCategory] = useState(null);
 
   // Scroll to top on mount and category change
   useEffect(() => {
     window.scrollTo(0, 0);
+    setActiveSubCategory(null);
   }, [categoryId]);
 
   // Dummy filter state
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   const handleFilterChange = (filterLabel) => {
     setSelectedFilters(prev => 
@@ -129,14 +135,26 @@ const ProductList = () => {
     </label>
   );
 
-  // Mock filtering logic based on selected filters
-  const filteredProducts = selectedFilters.length === 0 
-    ? data.products 
-    : data.products.filter(p => {
-        if (selectedFilters.includes('Instock (850)')) return true;
-        // Deterministic mock filtering: show some products based on id
-        return p.id % 2 === (selectedFilters.length % 2);
-      });
+  // Mock filtering logic based on selected filters and subcategory
+  let filteredProducts = data.products;
+
+  if (activeSubCategory) {
+    // Filter by product title (or fallback to id trick if title missing for other categories)
+    filteredProducts = filteredProducts.filter(p => {
+      if (p.title) {
+        return p.title.toLowerCase().includes(activeSubCategory.toLowerCase());
+      }
+      return (p.id + activeSubCategory.length) % 2 === 0;
+    });
+  }
+
+  if (selectedFilters.length > 0) {
+    filteredProducts = filteredProducts.filter(p => {
+      if (selectedFilters.includes('Instock (850)')) return true;
+      // Deterministic mock filtering: show some products based on id
+      return p.id % 2 === (selectedFilters.length % 2);
+    });
+  }
 
   return (
     <div className="product-list-page">
@@ -152,13 +170,40 @@ const ProductList = () => {
       </div>
 
       <div className="plp-container">
+        {/* Mobile Filter Toggle */}
+        <button 
+          className="mobile-filter-toggle"
+          onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+        >
+          {isMobileFilterOpen ? 'Hide Filters' : 'Show Filters'}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{width: 16, height: 16}}>
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
         {/* Sidebar */}
-        <aside className="plp-sidebar">
+        <aside className={`plp-sidebar ${isMobileFilterOpen ? 'mobile-open' : ''}`}>
           <div className="sidebar-block">
             <h3 className="sidebar-title">{data.title}</h3>
             <ul className="sidebar-list">
               {data.sidebarList.map((item, index) => (
-                <li key={index}><Link to="#">{item}</Link></li>
+                <li key={index}>
+                  <button
+                    onClick={() => setActiveSubCategory(activeSubCategory === item ? null : item)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                      color: activeSubCategory === item ? '#7b1e3e' : '#555',
+                      fontSize: '0.85rem',
+                      fontFamily: 'inherit',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {item}
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
@@ -256,8 +301,11 @@ const ProductList = () => {
                 >
                   <div className="plp-product-card">
                     <div className="plp-product-image">
-                      <img src={`/image/${product.image}`} alt={data.title} />
+                      <img src={`/image/${product.image}`} alt={product.title || data.title} />
                     </div>
+                    <h4 className="plp-product-title" style={{ fontSize: '0.9rem', margin: '0 0 0.5rem 0', textAlign: 'center', color: '#333' }}>
+                      {product.title || data.title}
+                    </h4>
                     <div className="plp-product-weight">Weight: {product.weight}</div>
                     <div className="plp-product-price">{product.price}</div>
                   </div>

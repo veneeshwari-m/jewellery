@@ -1825,6 +1825,16 @@
   .search-input {
     display: none; /* Hide search input */
   }
+  .search-input.mobile-active {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 250px;
+    z-index: 1000;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
   .search-bar-container {
     background: transparent;
     border: none;

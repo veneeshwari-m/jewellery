@@ -26,14 +26,33 @@ const TREND_MULTIPLIERS = {
 
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
+const MOCK_PRODUCTS = [
+  { id: 'feat-1', title: 'Featured Gold Bangle', image: 'page-3.1.jpg', price: '₹ 57,994.15' },
+  { id: 'feat-2', title: 'Featured Solitaire Ring', image: 'page-3.2.jpg', price: '₹ 81,351.46' },
+  { id: 'feat-3', title: 'Featured Gold Earrings', image: 'page-3.3.jpg', price: '₹ 51,163.20' },
+  { id: 'feat-4', title: 'Featured Gold Pendant', image: 'page-3.4.jpg', price: '₹ 45,890.62' },
+  { id: 'cat-1', title: 'Gold Bangles Collection', image: 'page-4.1.png', price: '₹ 45,000.00' },
+  { id: 'cat-2', title: 'Gold Malai Collection', image: 'page-4.2.jpg', price: '₹ 1,45,000.00' },
+  { id: 'cat-3', title: 'Gold Necklace Set', image: 'page-4.3.png', price: '₹ 85,000.00' },
+];
+
 function Layout({ children }) {
   const [rates] = useState(DEFAULT_RATES);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('gold22k'); // gold22k, gold24k, gold18k, silver, platinum
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  const filteredProducts = MOCK_PRODUCTS.filter(p => 
+    p.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const user = useSelector(state => state.user);
   
   const cartItemsCount = useSelector(state => state.cart.items.length);
   const wishlistItemsCount = useSelector(state => state.wishlist.items.length);
@@ -288,12 +307,88 @@ function Layout({ children }) {
           </div>
 
           <div className="navbar-center">
-            <div className="search-bar-container">
-              <input type="text" placeholder="Search..." className="search-input" />
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="search-bar-container" style={{ position: 'relative' }}>
+              <input 
+                type="text" 
+                placeholder="Search..." 
+                className={`search-input ${isMobileSearchOpen ? 'mobile-active' : ''}`}
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSearchResults(e.target.value.length > 0);
+                }}
+                onFocus={() => {
+                  if (searchQuery.length > 0) setShowSearchResults(true);
+                }}
+                onBlur={() => setShowSearchResults(false)}
+              />
+              <svg 
+                className="search-icon" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+                onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
+                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              >
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
+              
+              {showSearchResults && (
+                <div className="search-results-dropdown" style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  width: '100%',
+                  minWidth: isMobileSearchOpen ? '250px' : 'auto',
+                  backgroundColor: 'white',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  borderRadius: '4px',
+                  marginTop: '8px',
+                  maxHeight: '300px',
+                  overflowY: 'auto',
+                  zIndex: 1001,
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
+                  {filteredProducts.length > 0 ? (
+                    filteredProducts.map(product => (
+                      <div 
+                        key={product.id}
+                        onMouseDown={(e) => {
+                          // Prevent input blur before click registers
+                          e.preventDefault();
+                          setShowSearchResults(false);
+                          setSearchQuery('');
+                          setIsMobileSearchOpen(false);
+                          navigate(`/product/${product.id}`, { state: { product } });
+                        }}
+                        className="search-result-item"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '10px',
+                          borderBottom: '1px solid #eee',
+                          cursor: 'pointer',
+                          gap: '12px',
+                          textDecoration: 'none'
+                        }}
+                      >
+                        <img src={`/image/${product.image}`} alt={product.title} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <span style={{ fontSize: '0.9rem', color: '#333', fontWeight: '500' }}>{product.title}</span>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--primary-color)' }}>{product.price}</span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ padding: '15px', textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>
+                      No results found for "{searchQuery}"
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -308,13 +403,24 @@ function Layout({ children }) {
               </div>
             </div>
 
-            <button className="nav-action-item" onClick={() => navigate('/login')}>
-              <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span>Login</span>
-            </button>
+            {user?.isLoggedIn ? (
+              <button className="nav-action-item" onClick={() => navigate('/profile')}>
+                <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="8.5" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" />
+                  <polyline points="17 11 19 13 23 9" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>Profile</span>
+              </button>
+            ) : (
+              <button className="nav-action-item" onClick={() => navigate('/login')}>
+                <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span>Login</span>
+              </button>
+            )}
 
             <button className="nav-action-item" onClick={() => navigate('/wishlist')}>
               <div style={{ position: 'relative', display: 'inline-flex' }}>
@@ -393,6 +499,10 @@ function Layout({ children }) {
             </div>
 
             <div className="modal-body">
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 700 }}>
+                Last updated Time: <strong style={{ color: '#333' }}>{rates.lastUpdated}</strong>
+              </div>
+              
               {/* Tab Selector */}
               <div className="modal-tabs">
                 <button 
