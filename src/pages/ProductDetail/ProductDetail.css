@@ -1,0 +1,384 @@
+.product-detail-page {
+  font-family: var(--font-sans, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+  background-color: #ffffff;
+}
+
+.pdp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #7b1e3e;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.pdp-breadcrumb svg {
+  width: 14px;
+  height: 14px;
+  stroke: #7b1e3e;
+}
+
+.pdp-container {
+  display: flex;
+  gap: 4rem;
+}
+
+/* Left Side: Images */
+.pdp-left {
+  flex: 1;
+  max-width: 50%;
+}
+
+.pdp-main-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.pdp-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pdp-thumbnails {
+  display: flex;
+  gap: 1rem;
+}
+
+.pdp-thumbnail {
+  width: 80px;
+  height: 80px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.pdp-thumbnail:hover {
+  border-color: #7b1e3e;
+}
+
+.pdp-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right Side: Info */
+.pdp-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdp-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.pdp-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.2rem;
+}
+
+.pdp-description {
+  font-size: 0.65rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.pdp-meta {
+  font-size: 0.65rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.pdp-meta-label {
+  color: #555;
+  text-transform: uppercase;
+}
+
+.pdp-meta-value {
+  font-weight: 700;
+  color: #000;
+}
+
+.pdp-price-breakup-section {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pdp-section-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.pdp-breakup-grid {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.pdp-breakup-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.65rem;
+}
+
+.pdp-breakup-label {
+  color: #333;
+  font-weight: 600;
+}
+
+.pdp-breakup-value {
+  color: #333;
+  font-weight: 600;
+}
+
+.pdp-breakup-plus {
+  font-size: 0.65rem;
+  color: #888;
+  margin-top: 0.2rem;
+}
+
+.pdp-divider {
+  height: 1px;
+  background-color: #ddd;
+  border: none;
+  margin: 1.5rem 0;
+}
+
+.pdp-action-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pdp-buy-now,
+.pdp-add-to-cart,
+.pdp-add-to-wishlist {
+  background: linear-gradient(to right, #3A0B1A, #280410);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: max-content;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.pdp-buy-now:hover,
+.pdp-add-to-cart:hover,
+.pdp-add-to-wishlist:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.pdp-buy-now svg,
+.pdp-add-to-cart svg,
+.pdp-add-to-wishlist svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.pdp-pincode-subtitle {
+  font-size: 0.65rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.pdp-pincode-input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.pdp-pincode-input::placeholder {
+  color: #aaa;
+}
+
+.pdp-check-btn {
+  background: linear-gradient(to right, #3A0B1A, #280410);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  width: max-content;
+  margin-bottom: 1.5rem;
+  transition: opacity 0.2s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.pdp-check-btn:hover {
+  opacity: 0.9;
+}
+
+.pdp-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #333;
+  margin-top: 1rem;
+}
+
+.pdp-whatsapp-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.pdp-whatsapp-contact svg {
+  width: 20px;
+  height: 20px;
+  fill: #25D366; /* Whatsapp green */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pdp-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .pdp-left {
+    max-width: 100%;
+  }
+  .pdp-breakup-grid {
+    flex-wrap: wrap;
+  }
+}
+
+/* Bottom Section */
+.pdp-bottom-section {
+  margin-top: 4rem;
+  border-top: 1px solid #eee;
+  padding-top: 2rem;
+}
+
+.pdp-tabs {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 2px solid #f0e6eb; /* Light pinkish line */
+  margin-bottom: 2rem;
+}
+
+.pdp-tab {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #333;
+  padding-bottom: 0.8rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: -2px; /* Overlap border */
+  border-bottom: 2px solid transparent;
+}
+
+.pdp-tab.active {
+  border-bottom: 2px solid #3A0B1A;
+}
+
+.pdp-attributes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 600px;
+}
+
+.pdp-attr-row {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.pdp-attr-key {
+  width: 200px;
+  font-weight: 700;
+  color: #333;
+}
+
+.pdp-attr-value {
+  color: #666;
+}
+
+.pdp-reviews {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Policy Section */
+.pdp-policy-section {
+  margin-top: 4rem;
+}
+
+.pdp-policy-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.pdp-policy-tabs {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pdp-policy-tab {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+}
+
+.pdp-policy-tab.active {
+  background: linear-gradient(to right, #3A0B1A, #280410);
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 4px;
+}
+
+.pdp-policy-text {
+  font-size: 0.7rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 1000px;
+}

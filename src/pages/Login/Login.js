@@ -17,27 +17,11 @@ const Login = () => {
       
       <div className="login-container">
         
-        {/* Left Column: Social Login */}
-        <div className="login-social-col">
-          <h3 className="login-section-title">Login With Social Profile</h3>
-          <div className="social-login-buttons">
-            <button className="social-btn facebook-btn">
-              <span className="social-icon">f</span>
-              <span className="social-text">Login with Facebook</span>
-            </button>
-            <button className="social-btn google-btn">
-              <span className="social-icon google-icon">G</span>
-              <span className="social-text">Login with Google</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Right Column: Email Login */}
-        <div className="login-email-col">
+        <div className="login-form-container">
           <h3 className="login-section-title">Registered Customers</h3>
           <p className="login-subtitle">If you have an account, sign in with your email address.</p>
           
-          <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="login-form" onSubmit={(e) => { e.preventDefault(); navigate('/'); }}>
             <div className="form-group">
               <label>Email <span className="required">*</span></label>
               <input type="email" required />
@@ -48,7 +32,7 @@ const Login = () => {
               <input type="password" required />
             </div>
             
-            <a href="#" className="forgot-password-link">Forgot Your Password?</a>
+            <button type="button" className="forgot-password-link" onClick={() => navigate('/forgot-password')}>Forgot Your Password?</button>
             
             <div className="login-action-buttons">
               <button type="submit" className="login-primary-btn">SIGN IN</button>

@@ -1,0 +1,148 @@
+.rate-history-page {
+  font-family: var(--font-sans, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  background-color: #ffffff;
+  min-height: 60vh;
+}
+
+.rh-header-banner {
+  background-color: #e5e5e5;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.rh-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.rh-content {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.rh-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 800px;
+  padding: 3rem;
+}
+
+.rh-reset-btn {
+  width: 100%;
+  background: linear-gradient(to bottom, #3A0B1A, #1e030c);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 4rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.rh-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 3rem;
+  position: relative;
+}
+
+/* Vertical divider line */
+.rh-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: #a78f99;
+  transform: translateX(-50%);
+}
+
+.rh-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.rh-rate {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.rh-label {
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .rh-grid {
+    grid-template-columns: 1fr;
+  }
+  .rh-grid::after {
+    display: none;
+  }
+}
+
+/* Graph Section */
+.rh-graph-section {
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  padding: 2rem 4rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.rh-graph-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.2rem;
+}
+
+.rh-graph-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 4rem;
+  padding-left: 8rem; /* slight shift to right like mockup */
+}
+
+.rh-svg-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  margin-bottom: 4rem;
+}
+
+.rh-y-label {
+  position: absolute;
+  top: -40px;
+  left: -80px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #222;
+}
+
+.rh-x-label {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  font-size: 0.9rem;
+  color: #222;
+}

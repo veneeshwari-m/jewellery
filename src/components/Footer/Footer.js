@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function Footer({ scrollToSection, onNavigate }) {
@@ -9,9 +10,9 @@ function Footer({ scrollToSection, onNavigate }) {
         <div className="footer-new-col">
           <h4 className="footer-new-title">Corporate Info</h4>
           <ul className="footer-new-links">
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">About Thangam</button></li>
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Corporate Governanace</button></li>
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">News and Media</button></li>
+            <li><a href="/about-us" className="footer-new-link">About Thangam</a></li>
+            <li><a href="/corporate-governance" className="footer-new-link">Corporate Governance</a></li>
+            <li><a href="/news-and-media" className="footer-new-link">News and Media</a></li>
           </ul>
         </div>
 
@@ -19,10 +20,9 @@ function Footer({ scrollToSection, onNavigate }) {
         <div className="footer-new-col">
           <h4 className="footer-new-title">Let us help you</h4>
           <ul className="footer-new-links">
-            <li><button onClick={() => { if(onNavigate) { onNavigate('faq'); window.scrollTo(0,0); } else { scrollToSection('hero'); } }} className="footer-new-link">FAQ</button></li>
-            <li><a href="/contact-us" className="footer-new-link">Contact Us</a></li>
-            <li><a href="/enquiry-form" className="footer-new-link">Enquiry Form</a></li>
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Bangle size Guide</button></li>
+            <li><a href="/faq" className="footer-new-link">FAQ</a></li>
+            <li><a href="/contact-us" className="footer-new-link">Contact Us/Enquiry Form</a></li>
+            <li><a href="/bangle-size-guide" className="footer-new-link">Bangle size Guide</a></li>
           </ul>
         </div>
 
@@ -30,8 +30,8 @@ function Footer({ scrollToSection, onNavigate }) {
         <div className="footer-new-col">
           <h4 className="footer-new-title">Policies</h4>
           <ul className="footer-new-links">
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Returnd & Exchnge</button></li>
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Lifetime Exchange</button></li>
+            <li><Link to="/terms-conditions" state={{ section: 'Return, Exchange & Refund Policy' }} onClick={() => window.scrollTo(0,0)} className="footer-new-link">Return & Exchange</Link></li>
+            <li><Link to="/terms-conditions" state={{ section: 'Lifetime Exchange' }} onClick={() => window.scrollTo(0,0)} className="footer-new-link">Lifetime Exchange</Link></li>
           </ul>
         </div>
 
@@ -39,8 +39,8 @@ function Footer({ scrollToSection, onNavigate }) {
         <div className="footer-new-col">
           <h4 className="footer-new-title">Information</h4>
           <ul className="footer-new-links">
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Disclamire</button></li>
-            <li><button onClick={() => scrollToSection('hero')} className="footer-new-link">Terms & Condition</button></li>
+            <li><Link to="/terms-conditions" state={{ section: 'Disclaimer' }} onClick={() => window.scrollTo(0,0)} className="footer-new-link">Disclamire</Link></li>
+            <li><Link to="/terms-conditions" state={{ section: 'Terms & Conditions' }} onClick={() => window.scrollTo(0,0)} className="footer-new-link">Terms & Condition</Link></li>
           </ul>
         </div>
 
