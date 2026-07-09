@@ -1,5 +1,5 @@
 .news-media-page {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   min-height: 100vh;
   background-color: #fcfcfc;
 }
@@ -24,7 +24,7 @@
 .news-media-hero-content h1 {
   font-size: 6rem;
   color: #7b5299; /* Deep purple text */
-  font-family: 'Times New Roman', serif;
+  font-family: var(--font-sans);
   font-weight: 400;
   letter-spacing: 15px;
   text-transform: uppercase;

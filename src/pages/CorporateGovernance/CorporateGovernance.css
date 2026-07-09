@@ -1,5 +1,5 @@
 .corporate-gov-page {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   min-height: 100vh;
   background-color: #fcfcfc;
 }
@@ -51,7 +51,7 @@
   padding-right: 0.5rem;
   padding-left: 0.1rem;
   color: #4a4a4a;
-  font-family: Georgia, serif;
+  font-family: var(--font-sans);
 }
 
 .internal-policy-section {

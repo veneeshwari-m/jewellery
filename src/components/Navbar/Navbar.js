@@ -89,14 +89,14 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
     <>
       <nav 
         className="category-navbar"
-        onMouseLeave={() => setHoveredIndex(null)}
       >
         <div className="category-navbar-container">
           {navItems.map((item, index) => (
             <div 
               key={index} 
-              className={`category-nav-item ${item.megaMenu ? 'has-mega-menu' : ''}`}
+              className="category-nav-item"
               onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => {
                 const slug = item.label === 'HOME' ? '/' : `/category/${item.label.toLowerCase().replace(/\s+/g, '-')}`;
                 navigate(slug);
@@ -113,38 +113,36 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 </svg>
               )}
               
-              {/* Arrow directly under the nav item */}
+              {/* Arrow and Mega Menu Dropdown directly under the nav item */}
               {hoveredIndex === index && item.megaMenu && !forceClose && (
-                <div className="mega-menu-arrow"></div>
+                <>
+                  <div className="mega-menu-arrow"></div>
+                  <div className={`mega-menu centered-mega-menu ${item.label === 'SILVER JEWELLRY' ? 'align-right' : ''}`}>
+                    <div 
+                      className="mega-menu-grid"
+                      style={{ 
+                        '--cols': Math.min(5, item.megaMenu.length)
+                      }}
+                    >
+                      {item.megaMenu.map((mItem, mIndex) => (
+                        <div 
+                          className="mega-menu-item" 
+                          key={mIndex}
+                          onClick={(e) => handleMegaMenuClick(e, `/category/${item.label.toLowerCase().replace(/\s+/g, '-')}`)}
+                        >
+                          <div className="mega-menu-img-container">
+                            <img src={`/image/${mItem.img}`} alt={mItem.text} />
+                          </div>
+                          <span className="mega-menu-text">{mItem.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           ))}
         </div>
-
-        {/* Mega Menu Dropdown centered on the entire navbar */}
-        {hoveredIndex !== null && navItems[hoveredIndex].megaMenu && !forceClose && (
-          <div className="mega-menu centered-mega-menu">
-            <div 
-              className="mega-menu-grid"
-              style={{ 
-                '--cols': Math.min(5, navItems[hoveredIndex].megaMenu.length)
-              }}
-            >
-              {navItems[hoveredIndex].megaMenu.map((mItem, mIndex) => (
-                <div 
-                  className="mega-menu-item" 
-                  key={mIndex}
-                  onClick={(e) => handleMegaMenuClick(e, `/category/${navItems[hoveredIndex].label.toLowerCase().replace(/\s+/g, '-')}`)}
-                >
-                  <div className="mega-menu-img-container">
-                    <img src={`/image/${mItem.img}`} alt={mItem.text} />
-                  </div>
-                  <span className="mega-menu-text">{mItem.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Mobile Off-Canvas Menu */}

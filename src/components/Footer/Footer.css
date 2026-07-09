@@ -135,7 +135,7 @@
 }
 
 .footer-new-subscribe-btn:hover {
-  background-color: #a01a1a;
+  background-color: var(--primary-color);
 }
 
 /* ── Download App block ── */
@@ -255,7 +255,7 @@
 }
 
 .footer-new-scrolltop-btn:hover {
-  background-color: #a01a1a;
+  background-color: var(--primary-color);
   transform: translateY(-2px);
 }
 

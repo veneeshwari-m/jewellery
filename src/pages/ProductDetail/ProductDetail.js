@@ -104,7 +104,7 @@ const ProductDetail = () => {
                 key={index} 
                 className="pdp-thumbnail" 
                 onClick={() => setActiveImage(img)}
-                style={{ borderColor: activeImage === img ? '#7b1e3e' : '#eee' }}
+                style={{ borderColor: activeImage === img ? 'var(--primary-color)' : '#eee' }}
               >
                 <img src={`/image/${img}`} alt={`${product.title} view ${index + 1}`} />
               </div>
