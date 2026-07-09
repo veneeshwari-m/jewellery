@@ -11,7 +11,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
-  color: #7b1e3e;
+  color: var(--primary-color);
   margin-bottom: 2rem;
   text-transform: uppercase;
 }
@@ -19,7 +19,7 @@
 .pdp-breadcrumb svg {
   width: 14px;
   height: 14px;
-  stroke: #7b1e3e;
+  stroke: var(--primary-color);
 }
 
 .pdp-container {
@@ -62,7 +62,7 @@
 }
 
 .pdp-thumbnail:hover {
-  border-color: #7b1e3e;
+  border-color: var(--primary-color);
 }
 
 .pdp-thumbnail img {

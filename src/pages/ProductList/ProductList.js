@@ -195,8 +195,8 @@ const ProductList = () => {
                       border: 'none',
                       cursor: 'pointer',
                       padding: 0,
-                      color: activeSubCategory === item ? '#7b1e3e' : '#555',
-                      fontSize: '0.85rem',
+                      color: '#555',
+                      fontSize: '12px',
                       fontFamily: 'inherit',
                       textAlign: 'left'
                     }}

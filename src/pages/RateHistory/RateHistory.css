@@ -38,7 +38,7 @@
   text-align: center;
   font-size: 0.8rem;
   margin-bottom: 3rem;
-  color: #7b1e3e;
+  color: var(--primary-color);
   font-weight: 700;
   white-space: nowrap;
 }
