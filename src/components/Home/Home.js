@@ -26,6 +26,14 @@ const TREND_MULTIPLIERS = {
 
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
+const categoryProducts = {
+  bangals: { id: 1, image: 'gold-1.jpg', title: 'Elegant Gold Bangles', weight: '3.13 gm', price: '₹ 57,994.15', images: ['gold-1.jpg', 'gold-4.jpg'] },
+  malai: { id: 2, image: 'gold-2.jpg', title: 'Traditional Gold Malai', weight: '4.75 gm', price: '₹ 81,351.46', images: ['gold-2.jpg', 'gold-4.jpg'] },
+  necklace: { id: 3, image: 'gold-3.jpg', title: 'Classic Gold Necklace', weight: '3.07 gm', price: '₹ 51,163.20', images: ['gold-3.jpg', 'gold-4.jpg'] },
+  earings: { id: 4, image: 'gold-4.jpg', title: 'Floral Gold Earrings', weight: '2.47 gm', price: '₹ 45,890.62', images: ['gold-4.jpg', 'gold-3.jpg'] },
+  pendant: { id: 5, image: 'gold-5.jpg', title: 'Diamond Gold Pendant', weight: '2.47 gm', price: '₹ 45,890.62', images: ['gold-5.jpg', 'gold-4.jpg'] }
+};
+
 function Home() {
   // Redux state
   const dispatch = useDispatch();
@@ -96,21 +104,21 @@ function Home() {
           const rateVal = Math.round(maxRate - ratio * rateRange);
           return (
             <g key={i}>
-              <line 
-                x1={paddingLeft} 
-                y1={y} 
-                x2={chartWidth - paddingRight} 
-                y2={y} 
-                stroke="#eae6df" 
-                strokeWidth="1" 
+              <line
+                x1={paddingLeft}
+                y1={y}
+                x2={chartWidth - paddingRight}
+                y2={y}
+                stroke="#eae6df"
+                strokeWidth="1"
                 strokeDasharray="4 4"
               />
-              <text 
-                x={paddingLeft - 8} 
-                y={y + 4} 
-                textAnchor="end" 
-                fontSize="10" 
-                fill="#78716c" 
+              <text
+                x={paddingLeft - 8}
+                y={y + 4}
+                textAnchor="end"
+                fontSize="10"
+                fill="#78716c"
                 fontWeight="500"
               >
                 ₹{rateVal.toLocaleString('en-IN')}
@@ -128,33 +136,33 @@ function Home() {
         {/* X-axis dates & vertical lines */}
         {points.map((p, i) => (
           <g key={i}>
-            <line 
-              x1={p.x} 
-              y1={paddingTop} 
-              x2={p.x} 
-              y2={chartHeight - paddingBottom} 
-              stroke="#eae6df" 
-              strokeWidth="1" 
+            <line
+              x1={p.x}
+              y1={paddingTop}
+              x2={p.x}
+              y2={chartHeight - paddingBottom}
+              stroke="#eae6df"
+              strokeWidth="1"
               strokeDasharray="2 2"
             />
-            <text 
-              x={p.x} 
-              y={chartHeight - paddingBottom + 18} 
-              textAnchor="middle" 
-              fontSize="10" 
-              fill="#78716c" 
+            <text
+              x={p.x}
+              y={chartHeight - paddingBottom + 18}
+              textAnchor="middle"
+              fontSize="10"
+              fill="#78716c"
               fontWeight="600"
             >
               {p.date}
             </text>
-            
+
             {/* Interactive Circle anchors */}
-            <circle 
-              cx={p.x} 
-              cy={p.y} 
-              r="5" 
-              fill="var(--bg-card)" 
-              stroke="var(--primary-color)" 
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r="5"
+              fill="var(--bg-card)"
+              stroke="var(--primary-color)"
               strokeWidth="3"
               style={{ cursor: 'pointer' }}
               onMouseEnter={() => dispatch(setHoveredPoint(p))}
@@ -179,9 +187,9 @@ function Home() {
 
       {/* 3. HERO SECTION (Full-width Promotional Banner) */}
       <header id="hero" className="hero-banner-section" onClick={() => scrollToSection('calculator')}>
-        <img 
-          src="/image/hero_banner.png" 
-          alt="Big Box Big Savings Offer Banner" 
+        <img
+          src="/image/hero_banner.png"
+          alt="Big Box Big Savings Offer Banner"
           className="hero-banner-image"
         />
       </header>
@@ -242,7 +250,7 @@ function Home() {
         <div className="section-header-left">
           <h2 className="section-title-left">FEATURED PRODUCT</h2>
         </div>
-        
+
         <div className="featured-products-grid">
           <div className="featured-product-card" onClick={() => { window.scrollTo(0, 0); navigate('/product/feat-1', { state: { product: { id: 'feat-1', title: 'Featured Gold Bangle', image: 'page-3.1.jpg', price: '₹ 57,994.15' } } }); }}>
             <div className="product-image-container">
@@ -294,27 +302,22 @@ function Home() {
             <h2 className="section-title-center">SHOP BY CATEGORY</h2>
             <span className="line"></span>
           </div>
-          
+
           <div className="categories-grid">
-            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery', { state: { subcategory: 'Gold Earrings' } }); }}>
               <img src="/image/page-4.1.png" alt="GOLD BANGLES" className="category-image" />
-              <p className="category-label">GOLD BANGLES</p>
             </div>
-            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery', { state: { subcategory: 'Gold Malai' } }); }}>
               <img src="/image/page-4.2.jpg" alt="GOLD MALAI" className="category-image" />
-              <p className="category-label">GOLD MALAI</p>
             </div>
-            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery', { state: { subcategory: 'Gold Necklace' } }); }}>
               <img src="/image/page-4.3.png" alt="GOLD NECKLACE" className="category-image" />
-              <p className="category-label">GOLD NECKLACE</p>
             </div>
-            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery', { state: { subcategory: 'Gold Bangles' } }); }}>
               <img src="/image/page-4.4.png" alt="GOLD EARINGS" className="category-image" />
-              <p className="category-label">GOLD EARINGS</p>
             </div>
-            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery'); }}>
+            <div className="category-card" onClick={() => { window.scrollTo(0, 0); navigate('/category/gold-jewellery', { state: { subcategory: 'Gold Pendant' } }); }}>
               <img src="/image/page-5.1.jpg" alt="GOLD PENDANT" className="category-image" />
-              <p className="category-label">GOLD PENDANT</p>
             </div>
           </div>
         </div>
@@ -325,7 +328,7 @@ function Home() {
         <div className="section-header-left">
           <h2 className="section-title-left">JUST ARRIVED</h2>
         </div>
-        
+
         <div className="just-arrived-grid">
           <div className="just-arrived-card" onClick={() => scrollToSection('calculator')}>
             <img src="/image/page-5.1.jpg" alt="Just Arrived Jhumka 1" className="just-arrived-image" />
@@ -374,7 +377,7 @@ function Home() {
               <h3 className="group-header-title">FEATURED PRODUCT</h3>
             </div>
           </div>
-          
+
           <div className="groups-content-grid">
             {/* Column 1: Best Selling */}
             <div className="group-column" data-title="BEST SELLING PRODUCT">
@@ -456,7 +459,7 @@ function Home() {
         <div className="section-header-left">
           <h2 className="section-title-left">CHOOSE FROM OUR BEST SAVINGS SCHEMES</h2>
         </div>
-        
+
         <div className="schemes-grid">
           {/* Scheme 1 */}
           <div className="scheme-column">
@@ -503,7 +506,7 @@ function Home() {
         <div className="section-header-left">
           <h2 className="section-title-left">WHAT PEOPLE ARE SAYING</h2>
         </div>
-        
+
         <div className="testimonials-grid">
           <div className="testimonial-card">
             <img src="/image/l-review.png" alt="What People Are Saying - Review 1" className="testimonial-img" />
@@ -515,7 +518,7 @@ function Home() {
       </section>
 
       {/* 7. LIVE RATES SIMULATOR PANEL */}
-      <button 
+      <button
         className="simulator-trigger"
         onClick={() => dispatch(setIsSimOpen(!isSimOpen))}
       >
@@ -528,11 +531,11 @@ function Home() {
             <span className="simulator-title">Rates Simulator</span>
             <button style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }} onClick={() => dispatch(setIsSimOpen(false))}>×</button>
           </div>
-          
+
           <div className="simulator-row">
             <label className="simulator-label">Gold 22k (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               className="simulator-input"
               value={rates.gold22k}
               onChange={(e) => dispatch(setRates({ ...rates, gold22k: parseInt(e.target.value) || 0 }))}
@@ -541,8 +544,8 @@ function Home() {
 
           <div className="simulator-row">
             <label className="simulator-label">Gold 24k (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               className="simulator-input"
               value={rates.gold24k}
               onChange={(e) => dispatch(setRates({ ...rates, gold24k: parseInt(e.target.value) || 0 }))}
@@ -551,8 +554,8 @@ function Home() {
 
           <div className="simulator-row">
             <label className="simulator-label">Gold 18k (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               className="simulator-input"
               value={rates.gold18k}
               onChange={(e) => dispatch(setRates({ ...rates, gold18k: parseInt(e.target.value) || 0 }))}
@@ -561,8 +564,8 @@ function Home() {
 
           <div className="simulator-row">
             <label className="simulator-label">Silver (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               className="simulator-input"
               value={rates.silver}
               onChange={(e) => dispatch(setRates({ ...rates, silver: parseInt(e.target.value) || 0 }))}
@@ -571,8 +574,8 @@ function Home() {
 
           <div className="simulator-row">
             <label className="simulator-label">Platinum (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               className="simulator-input"
               value={rates.platinum}
               onChange={(e) => dispatch(setRates({ ...rates, platinum: parseInt(e.target.value) || 0 }))}
@@ -581,8 +584,8 @@ function Home() {
 
           <div className="simulator-row">
             <label className="simulator-label">Last Updated</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               className="simulator-input"
               style={{ width: '150px' }}
               value={rates.lastUpdated}
@@ -590,7 +593,7 @@ function Home() {
             />
           </div>
 
-          <button 
+          <button
             className="simulator-reset-btn"
             onClick={() => dispatch(setRates(DEFAULT_RATES))}
           >
@@ -603,10 +606,10 @@ function Home() {
       {isHistoryOpen && (
         <div className="modal-overlay" onClick={() => dispatch(setIsHistoryOpen(false))}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            
+
             <div className="modal-header">
               <h2 className="modal-title">Live Rate Trends & History</h2>
-              <button 
+              <button
                 className="modal-close-btn"
                 onClick={() => dispatch(setIsHistoryOpen(false))}
               >
@@ -617,31 +620,31 @@ function Home() {
             <div className="modal-body">
               {/* Tab Selector */}
               <div className="modal-tabs">
-                <button 
+                <button
                   className={`modal-tab-btn ${activeTab === 'gold22k' ? 'active' : ''}`}
                   onClick={() => dispatch(setActiveTab('gold22k'))}
                 >
                   Gold 22K
                 </button>
-                <button 
+                <button
                   className={`modal-tab-btn ${activeTab === 'gold24k' ? 'active' : ''}`}
                   onClick={() => dispatch(setActiveTab('gold24k'))}
                 >
                   Gold 24K
                 </button>
-                <button 
+                <button
                   className={`modal-tab-btn ${activeTab === 'gold18k' ? 'active' : ''}`}
                   onClick={() => dispatch(setActiveTab('gold18k'))}
                 >
                   Gold 18K
                 </button>
-                <button 
+                <button
                   className={`modal-tab-btn ${activeTab === 'silver' ? 'active' : ''}`}
                   onClick={() => dispatch(setActiveTab('silver'))}
                 >
                   Silver
                 </button>
-                <button 
+                <button
                   className={`modal-tab-btn ${activeTab === 'platinum' ? 'active' : ''}`}
                   onClick={() => dispatch(setActiveTab('platinum'))}
                 >
@@ -652,17 +655,17 @@ function Home() {
               {/* Chart Visualizer */}
               <div className="chart-section">
                 <h3 className="chart-title">7-Day Trend Chart</h3>
-                
+
                 <div className="chart-svg-container">
                   {renderChart()}
 
                   {/* SVG Tooltip */}
                   {hoveredPoint && (
-                    <div 
+                    <div
                       className="chart-tooltip-bubble"
-                      style={{ 
-                        left: `${(hoveredPoint.x / 560) * 100}%`, 
-                        top: `${(hoveredPoint.y / 180) * 100}%` 
+                      style={{
+                        left: `${(hoveredPoint.x / 560) * 100}%`,
+                        top: `${(hoveredPoint.y / 180) * 100}%`
                       }}
                     >
                       <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{hoveredPoint.date}</span>
@@ -670,7 +673,7 @@ function Home() {
                     </div>
                   )}
                 </div>
-                
+
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1rem', fontStyle: 'italic' }}>
                   💡 Hover over trend nodes to see details. Trends generated relative to current live values.
                 </p>

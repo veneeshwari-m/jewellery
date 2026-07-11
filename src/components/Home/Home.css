@@ -1841,8 +1841,14 @@
   }
 }
 
-/* â”€â”€ Mobile L: â‰¤ 768px â”€â”€ */
+/* ── Mobile L: ≤ 768px ── */
 @media (max-width: 768px) {
+
+  .main-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
 
   /* Navbar reorder */
   .navbar-new {
@@ -1873,20 +1879,60 @@
     display: none;
   }
 
-  /* Rate board */
-  .rates-row {
-    gap: 0.75rem;
-    justify-content: flex-start;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  /* Rate board: marquee strip */
+  .rate-board-container {
+    padding: 0.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
-  .rate-board-container {
-    padding: 0.75rem 4%;
+  .rate-board-wrapper {
+    overflow: hidden;
+    gap: 0.2rem;
+  }
+
+  .rates-row {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    /* Let padding-right of rates-content handle the gap */
+    width: max-content;
+    overflow-x: hidden;
+    padding: 0.2rem 0;
+    animation: marqueeScroll 25s linear infinite;
+  }
+
+  .rates-row:active {
+    animation-play-state: paused;
+  }
+
+  .duplicate-content {
+    display: flex;
+  }
+
+  .rates-content {
+    min-width: max-content;
+    width: max-content;
+    gap: 0.5rem 0.8rem;
   }
 
   .rate-item {
-    font-size: 0.8rem;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+  }
+
+  .rate-val {
+    font-size: 0.78rem;
+  }
+
+  .updated-time-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .rate-history-btn {
+    padding: 0.2rem 1rem;
+    font-size: 0.72rem;
   }
 
   /* Hero */
@@ -1971,57 +2017,25 @@
 /* â”€â”€ Mobile M: â‰¤ 480px â”€â”€ */
 @media (max-width: 480px) {
 
-  /* Rate board: marquee strip */
-  .rate-board-container {
-    padding: 0.6rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .rate-board-wrapper {
-    overflow: hidden;
-  }
-
-  .rates-row {
-    display: inline-flex;
-    flex-wrap: nowrap;
-    gap: 0;
-    /* Let padding-right of rates-content handle the gap */
-    width: max-content;
-    animation: marqueeScroll 25s linear infinite;
-  }
-
-  .rates-row:active {
-    animation-play-state: paused;
-  }
-
-  .duplicate-content {
-    display: flex;
-  }
-
-  .rates-content {
-    width: auto;
-  }
-
+  /* Rate board: mobile adjustments */
   .rate-item {
-    flex-shrink: 0;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
+  }
+
+  .rate-val {
+    font-size: 0.74rem;
   }
 
   .updated-time-badge {
     flex-shrink: 0;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     margin-left: 0;
+    padding: 0.15rem 0.4rem;
   }
 
-  @keyframes marqueeScroll {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-50%);
-    }
+  .rate-history-btn {
+    padding: 0.15rem 0.8rem;
+    font-size: 0.68rem;
   }
 
   /* Navbar Mobile Layout */
@@ -2273,11 +2287,21 @@
 }
 
 .category-label {
-  margin-top: 1rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
   font-weight: 800;
   font-size: 0.9rem;
   color: #444;
   letter-spacing: 0.5px;
   text-align: center;
   text-transform: uppercase;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

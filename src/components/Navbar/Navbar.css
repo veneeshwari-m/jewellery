@@ -2,7 +2,6 @@
   background: linear-gradient(180deg, var(--primary-color) 0%, #2b0213 100%);
   width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 4px solid var(--accent-color); /* Added gold border */
   position: sticky;
   top: 0;
   z-index: 200; /* Ensure it stays above other content when scrolling */
@@ -161,7 +160,7 @@
 .mega-menu.centered-mega-menu {
   display: block; /* Shown by JS */
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.8rem);
   left: 0;
   transform: none;
   width: max-content;
@@ -169,7 +168,7 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   padding: 2.5rem;
   z-index: 300;
-  margin-top: 4px; /* Align exactly below the gold border */
+  margin-top: 0;
   cursor: default;
 }
 
@@ -182,23 +181,23 @@
 .mega-menu.centered-mega-menu::before {
   content: '';
   position: absolute;
-  top: -10px;
+  top: -0.9rem;
   left: 0;
   width: 100%;
-  height: 10px;
+  height: 0.9rem;
   background: transparent;
 }
 
 .mega-menu-arrow {
   position: absolute;
-  bottom: -4px; /* Align with the bottom of the gold border */
+  bottom: calc(-0.8rem - 1px);
   left: 50%;
   transform: translateX(-50%);
   width: 0; 
   height: 0; 
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #ffffff; /* White triangle pointing up */
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 16px solid #ffffff; /* White triangle pointing up */
   z-index: 301;
 }
 

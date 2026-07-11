@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import './ProductList.css';
 
 const categoryData = {
@@ -101,20 +101,146 @@ const FilterBlock = ({ title, children }) => {
   );
 };
 
+const getProductAttributes = (product) => {
+  const id = product.id;
+  const title = (product.title || '').toLowerCase();
+  
+  const attrs = {
+    occasion: [],
+    color: ['Yellow Gold'],
+    weightRange: [],
+    purity: ['22k'],
+    size: [],
+    gender: [],
+    style: [],
+    stock: ['Instock']
+  };
+
+  // Determine Occasion
+  if (title.includes('traditional') || title.includes('malai') || id % 4 === 1) {
+    attrs.occasion.push('Traditional');
+  }
+  if (title.includes('trendy') || title.includes('modern') || id % 4 === 2) {
+    attrs.occasion.push('Trendy');
+  }
+  if (title.includes('wedding') || title.includes('bridal') || title.includes('elegant') || title.includes('premium') || id % 4 === 0) {
+    attrs.occasion.push('Wedding Wear');
+  }
+  if (title.includes('office') || title.includes('daily') || title.includes('simple') || id % 4 === 3) {
+    attrs.occasion.push('Office Wear');
+  }
+
+  // Determine Metal Color
+  if (title.includes('rose') || id % 12 === 5) {
+    attrs.color = ['Rose Gold'];
+  } else {
+    attrs.color = ['Yellow Gold'];
+  }
+
+  // Determine Weight Range
+  const weightVal = parseFloat((product.weight || '').replace(/[^0-9.]/g, '')) || 0;
+  if (weightVal >= 100) {
+    attrs.weightRange.push('100.01g - 200g');
+  } else if (weightVal >= 80) {
+    attrs.weightRange.push('80.01g - 90.01g');
+  } else if (weightVal >= 40) {
+    attrs.weightRange.push('50.01g - 40.01g');
+  } else {
+    attrs.weightRange.push('30.01g - 20.01g');
+  }
+
+  // Determine Size
+  const sizeOptions = ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'];
+  const sizeIdx = id % sizeOptions.length;
+  attrs.size.push(sizeOptions[sizeIdx]);
+
+  // Determine Gender
+  if (title.includes('kids') || id % 5 === 4) {
+    attrs.gender.push('Kids');
+  } else if (title.includes('unisex') || id % 5 === 3) {
+    attrs.gender.push('Unisex');
+  } else if (title.includes('wedding') || title.includes('bridal') || id % 2 === 0) {
+    attrs.gender.push('Male');
+  } else {
+    attrs.gender.push('Female');
+  }
+
+  // Determine Style
+  if (title.includes('earings') || title.includes('earrings') || title.includes('stud') || id % 6 === 0) {
+    attrs.style.push('Earings');
+  }
+  if (title.includes('jhummika') || id % 6 === 1) {
+    attrs.style.push('Jhummika');
+  }
+  if (title.includes('plain') || title.includes('chain') || id % 6 === 2) {
+    attrs.style.push('Plain');
+  }
+  if (title.includes('floral') || title.includes('flower') || id % 6 === 3) {
+    attrs.style.push('Floral');
+  }
+  if (title.includes('heart') || title.includes('love') || id % 6 === 4) {
+    attrs.style.push('Heart');
+  }
+  if (title.includes('drop') || title.includes('pendant') || id % 6 === 5) {
+    attrs.style.push('Drops');
+  }
+
+  return attrs;
+};
+
+const getFilterBlockType = (cleanLabel) => {
+  if (['Traditional', 'Trendy', 'Wedding Wear', 'Office Wear'].includes(cleanLabel)) return 'occasion';
+  if (['Yellow Gold', 'Rose Gold'].includes(cleanLabel)) return 'color';
+  if (['100.01g - 200g', '80.01g - 90.01g', '50.01g - 40.01g', '30.01g - 20.01g'].includes(cleanLabel)) return 'weightRange';
+  if (['22k'].includes(cleanLabel)) return 'purity';
+  if (['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'].includes(cleanLabel)) return 'size';
+  if (['Female', 'Male', 'Kids', 'Unisex'].includes(cleanLabel)) return 'gender';
+  if (['Jhummika', 'Earings', 'Plain', 'Floral', 'Heart', 'Drops'].includes(cleanLabel)) return 'style';
+  if (['Instock'].includes(cleanLabel)) return 'stock';
+  return null;
+};
+
 const ProductList = () => {
   const { categoryId } = useParams();
+  const location = useLocation();
   const data = categoryData[categoryId] || categoryData['default'];
-  const [activeSubCategory, setActiveSubCategory] = useState(null);
+  const [activeSubCategory, setActiveSubCategory] = useState(location.state?.subcategory || null);
 
   // Scroll to top on mount and category change
   useEffect(() => {
     window.scrollTo(0, 0);
-    setActiveSubCategory(null);
-  }, [categoryId]);
+    setActiveSubCategory(location.state?.subcategory || null);
+  }, [categoryId, location.state?.subcategory]);
 
   // Dummy filter state
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [sortBy, setSortBy] = useState('stock');
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [showLimit, setShowLimit] = useState(12);
+
+  // Generate at least 36 items dynamically for any category to allow full testing of limit dropdown
+  let allProducts = data.products;
+  if (allProducts.length > 0 && allProducts.length < 36) {
+    const originalProducts = [...data.products];
+    const expanded = [...originalProducts];
+    const origLen = originalProducts.length;
+    let multiplier = 1;
+
+    const makeVariant = (p, mult, len) => ({
+      ...p,
+      id: p.id + (len * mult),
+      title: `${p.title || 'Product'} - Variant ${mult}`
+    });
+
+    while (expanded.length < 36) {
+      for (let i = 0; i < origLen; i++) {
+        expanded.push(makeVariant(originalProducts[i], multiplier, origLen));
+      }
+      multiplier++;
+    }
+    allProducts = expanded;
+  }
 
   const handleFilterChange = (filterLabel) => {
     setSelectedFilters(prev => 
@@ -124,19 +250,32 @@ const ProductList = () => {
     );
   };
 
-  const Checkbox = ({ label }) => (
-    <label className="sidebar-checkbox">
-      <input 
-        type="checkbox" 
-        checked={selectedFilters.includes(label)}
-        onChange={() => handleFilterChange(label)}
-      />
-      <span>{label}</span>
-    </label>
-  );
+  const getProductCountForFilter = (cleanLabel) => {
+    const blockType = getFilterBlockType(cleanLabel);
+    if (!blockType) return 0;
+    return allProducts.filter(product => {
+      const attrs = getProductAttributes(product);
+      const productValues = attrs[blockType] || [];
+      return productValues.includes(cleanLabel);
+    }).length;
+  };
+
+  const Checkbox = ({ label }) => {
+    const count = getProductCountForFilter(label);
+    return (
+      <label className="sidebar-checkbox">
+        <input 
+          type="checkbox" 
+          checked={selectedFilters.includes(label)}
+          onChange={() => handleFilterChange(label)}
+        />
+        <span>{label} ({count})</span>
+      </label>
+    );
+  };
 
   // Mock filtering logic based on selected filters and subcategory
-  let filteredProducts = data.products;
+  let filteredProducts = allProducts;
 
   if (activeSubCategory) {
     // Filter by product title (or fallback to id trick if title missing for other categories)
@@ -149,12 +288,57 @@ const ProductList = () => {
   }
 
   if (selectedFilters.length > 0) {
-    filteredProducts = filteredProducts.filter(p => {
-      if (selectedFilters.includes('Instock (850)')) return true;
-      // Deterministic mock filtering: show some products based on id
-      return p.id % 2 === (selectedFilters.length % 2);
+    // Group selected filters by block type
+    const groupedSelections = {};
+    selectedFilters.forEach(label => {
+      const cleanLabel = label.replace(/\s*\(\d+\)?$/, '').trim();
+      const blockType = getFilterBlockType(cleanLabel);
+      if (blockType) {
+        if (!groupedSelections[blockType]) {
+          groupedSelections[blockType] = [];
+        }
+        groupedSelections[blockType].push(cleanLabel);
+      }
+    });
+
+    // Filter products: must match at least one selection in each active block type
+    filteredProducts = filteredProducts.filter(product => {
+      const attrs = getProductAttributes(product);
+      for (const blockType in groupedSelections) {
+        const selections = groupedSelections[blockType];
+        const productValues = attrs[blockType] || [];
+        const hasMatch = selections.some(sel => productValues.includes(sel));
+        if (!hasMatch) {
+          return false;
+        }
+      }
+      return true;
     });
   }
+
+
+  // Sort logic based on selected sortBy and sortDirection
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    let comparison = 0;
+    if (sortBy === 'price') {
+      const priceA = parseFloat(a.price.replace(/[^0-9.]/g, '')) || 0;
+      const priceB = parseFloat(b.price.replace(/[^0-9.]/g, '')) || 0;
+      comparison = priceA - priceB;
+    } else if (sortBy === 'weight') {
+      const weightA = parseFloat(a.weight.replace(/[^0-9.]/g, '')) || 0;
+      const weightB = parseFloat(b.weight.replace(/[^0-9.]/g, '')) || 0;
+      comparison = weightA - weightB;
+    } else if (sortBy === 'stock') {
+      // For stock availability: if they are all in-stock (which mock data is), we can default to position or id
+      comparison = a.id - b.id;
+    } else {
+      // Position: default order, which is id
+      comparison = a.id - b.id;
+    }
+    return sortDirection === 'asc' ? comparison : -comparison;
+  });
+
+  const displayedProducts = sortedProducts.slice(0, showLimit);
 
   return (
     <div className="product-list-page">
@@ -209,59 +393,59 @@ const ProductList = () => {
           </div>
 
           <FilterBlock title="OCCASION">
-            <Checkbox label="Traditional (4)" />
-            <Checkbox label="Trendy (2)" />
-            <Checkbox label="Wedding Wear (6)" />
-            <Checkbox label="Office Wear (1)" />
+            <Checkbox label="Traditional" />
+            <Checkbox label="Trendy" />
+            <Checkbox label="Wedding Wear" />
+            <Checkbox label="Office Wear" />
           </FilterBlock>
 
           <FilterBlock title="METAL COLOR">
-            <Checkbox label="Yellow Gold (848)" />
-            <Checkbox label="Rose Gold (1)" />
+            <Checkbox label="Yellow Gold" />
+            <Checkbox label="Rose Gold" />
           </FilterBlock>
 
           <FilterBlock title="WEIGHT">
-            <Checkbox label="100.01g - 200g (2)" />
+            <Checkbox label="100.01g - 200g" />
             <Checkbox label="80.01g - 90.01g" />
             <Checkbox label="50.01g - 40.01g" />
-            <Checkbox label="30.01g - 20.01g (1)" />
+            <Checkbox label="30.01g - 20.01g" />
           </FilterBlock>
 
           <FilterBlock title="METAL PURITY">
-            <Checkbox label="22k (850)" />
+            <Checkbox label="22k" />
           </FilterBlock>
 
           <FilterBlock title="SIZE">
-            <Checkbox label="10 (2)" />
-            <Checkbox label="20 (1)" />
-            <Checkbox label="30 (3)" />
-            <Checkbox label="40 (1)" />
-            <Checkbox label="50 (1)" />
-            <Checkbox label="60 (1)" />
-            <Checkbox label="70 (1)" />
-            <Checkbox label="80 (1)" />
-            <Checkbox label="90 (1)" />
-            <Checkbox label="100 (1)" />
+            <Checkbox label="10" />
+            <Checkbox label="20" />
+            <Checkbox label="30" />
+            <Checkbox label="40" />
+            <Checkbox label="50" />
+            <Checkbox label="60" />
+            <Checkbox label="70" />
+            <Checkbox label="80" />
+            <Checkbox label="90" />
+            <Checkbox label="100" />
           </FilterBlock>
 
           <FilterBlock title="GENDER">
-            <Checkbox label="Female (5)" />
-            <Checkbox label="Male (5)" />
-            <Checkbox label="Kids (1)" />
-            <Checkbox label="Unisex (2)" />
+            <Checkbox label="Female" />
+            <Checkbox label="Male" />
+            <Checkbox label="Kids" />
+            <Checkbox label="Unisex" />
           </FilterBlock>
 
           <FilterBlock title="STYLE">
-            <Checkbox label="Jhummika (2)" />
-            <Checkbox label="Earings (2)" />
-            <Checkbox label="Plain (8)" />
-            <Checkbox label="Floral (5)" />
-            <Checkbox label="Heart (1)" />
-            <Checkbox label="Drops (2)" />
+            <Checkbox label="Jhummika" />
+            <Checkbox label="Earings" />
+            <Checkbox label="Plain" />
+            <Checkbox label="Floral" />
+            <Checkbox label="Heart" />
+            <Checkbox label="Drops" />
           </FilterBlock>
 
           <FilterBlock title="STOCK AVAILABILITY">
-            <Checkbox label="Instock (850)" />
+            <Checkbox label="Instock" />
           </FilterBlock>
         </aside>
 
@@ -274,25 +458,33 @@ const ProductList = () => {
           <div className="plp-controls">
             <div className="plp-control-group">
               <label>Sort by:</label>
-              <select>
-                <option>Stock Availability</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <option value="position">Position</option>
+                <option value="price">Price</option>
+                <option value="weight">Weight</option>
+                <option value="stock">Stock Availability</option>
               </select>
+              <button 
+                className="sort-direction-btn" 
+                onClick={() => setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')}
+                aria-label="Toggle sort direction"
+              >
+                {sortDirection === 'asc' ? '↑' : '↓'}
+              </button>
             </div>
             <div className="plp-control-group">
               <label>Show:</label>
-              <select>
-                <option>12</option>
-                <option>24</option>
-                <option>36</option>
+              <select value={showLimit} onChange={(e) => setShowLimit(Number(e.target.value))}>
+                <option value={12}>12</option>
+                <option value={24}>24</option>
+                <option value={36}>36</option>
               </select>
             </div>
           </div>
 
           <div className="plp-grid">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map(product => (
+            {displayedProducts.length > 0 ? (
+              displayedProducts.map(product => (
                 <Link 
                   to={`/product/${product.id}`} 
                   key={product.id} 
