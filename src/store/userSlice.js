@@ -39,8 +39,11 @@ const initialState = loadedState
   ? { 
       ...defaultState, 
       ...loadedState, 
-      registeredAccounts: loadedState.registeredAccounts || [],
-      orders: loadedState.orders || []
+      isLoggedIn: false,
+      details: defaultState.details,
+      addresses: [],
+      orders: [],
+      registeredAccounts: loadedState.registeredAccounts || []
     } 
   : defaultState;
 

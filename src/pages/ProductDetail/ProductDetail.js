@@ -72,7 +72,8 @@ const ProductDetail = () => {
   // Reset active image when product changes
   useEffect(() => {
     setActiveImage(product.images[0]);
-  }, [product.productCode, product.images]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.productCode]);
 
   // Scroll to top on mount or product change
   useEffect(() => {

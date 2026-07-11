@@ -84,9 +84,16 @@ const ContactUs = () => {
             <div className="input-group">
               <select name="category" className="form-input select-input">
                 <option value="">Select Category</option>
-                <option value="general">General Enquiry</option>
-                <option value="support">Customer Support</option>
-                <option value="feedback">Feedback</option>
+                <option value="online-shopping">Online shopping</option>
+                <option value="online-scheme-purchase">Online scheme purchase</option>
+                <option value="online-digigold-closure-purchase">Online digigold closure/purchase</option>
+                <option value="corporate-gifts">Corporate Gifts</option>
+                <option value="easy-money">Easy Money</option>
+                <option value="about-digigold-scheme">About Digigold Scheme</option>
+                <option value="about-jewellery-savings-scheme">About Jewellery savings scheme</option>
+                <option value="feedback-appreciation">Feedback/appreciation</option>
+                <option value="product-enquiry">Product Enquiry</option>
+                <option value="others">Others</option>
               </select>
             </div>
 

@@ -276,7 +276,9 @@ function Layout({ children }) {
             <button onClick={() => navigate('/store-locator')} className="utility-link bold-link" style={{ marginLeft: '12px' }}>STORE LOCATOR</button>
           </div>
           <div className="utility-right">
-            <button onClick={() => navigate('/create-account')} className="utility-link bold-link">CREATE AN ACCOUNT</button>
+            {!user?.isLoggedIn && (
+              <button onClick={() => navigate('/create-account')} className="utility-link bold-link">CREATE AN ACCOUNT</button>
+            )}
           </div>
         </div>
 
