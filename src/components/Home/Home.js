@@ -26,13 +26,6 @@ const TREND_MULTIPLIERS = {
 
 const DATES = ["05/30", "05/31", "06/01", "06/02", "06/03", "06/04", "06/05"];
 
-const categoryProducts = {
-  bangals: { id: 1, image: 'gold-1.jpg', title: 'Elegant Gold Bangles', weight: '3.13 gm', price: '₹ 57,994.15', images: ['gold-1.jpg', 'gold-4.jpg'] },
-  malai: { id: 2, image: 'gold-2.jpg', title: 'Traditional Gold Malai', weight: '4.75 gm', price: '₹ 81,351.46', images: ['gold-2.jpg', 'gold-4.jpg'] },
-  necklace: { id: 3, image: 'gold-3.jpg', title: 'Classic Gold Necklace', weight: '3.07 gm', price: '₹ 51,163.20', images: ['gold-3.jpg', 'gold-4.jpg'] },
-  earings: { id: 4, image: 'gold-4.jpg', title: 'Floral Gold Earrings', weight: '2.47 gm', price: '₹ 45,890.62', images: ['gold-4.jpg', 'gold-3.jpg'] },
-  pendant: { id: 5, image: 'gold-5.jpg', title: 'Diamond Gold Pendant', weight: '2.47 gm', price: '₹ 45,890.62', images: ['gold-5.jpg', 'gold-4.jpg'] }
-};
 
 function Home() {
   // Redux state
