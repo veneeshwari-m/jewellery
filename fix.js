@@ -1,22 +1,24 @@
 const fs = require('fs');
-<<<<<<< HEAD
 const path = require('path');
 
-const filePath = path.join(__dirname, 'src', 'components', 'Home', 'Home.js');
-let content = fs.readFileSync(filePath, 'utf8');
+{
+  const filePath = path.join(__dirname, 'src', 'components', 'Home', 'Home.js');
+  let content = fs.readFileSync(filePath, 'utf8');
 
-content = content.replace(/dispatch\(setRates\(\{ \.\.\.rates, (.*?): parseInt\(e\.target\.value\)\) \|\| 0 \}\)\}/g, 'dispatch(setRates({ ...rates, $1: parseInt(e.target.value) || 0 }))');
+  content = content.replace(/dispatch\(setRates\(\{ \.\.\.rates, (.*?): parseInt\(e\.target\.value\)\) \|\| 0 \}\)\}/g, 'dispatch(setRates({ ...rates, $1: parseInt(e.target.value) || 0 }))');
 
-fs.writeFileSync(filePath, content, 'utf8');
-console.log('Fixed syntax error in Home.js!');
-=======
-let content = fs.readFileSync(String.raw`d:\jewellery\jewellery\src\components\Layout\Layout.js`, 'utf8');
+  fs.writeFileSync(filePath, content, 'utf8');
+  console.log('Fixed syntax error in Home.js!');
+}
 
-const badStart = content.indexOf('<button \n            className="rate-history-btn"');
-const badEnd = content.indexOf('<div className="virtual-shopping"');
+{
+  let content = fs.readFileSync(String.raw`d:\jewellery\jewellery\src\components\Layout\Layout.js`, 'utf8');
 
-if (badStart !== -1 && badEnd !== -1) {
-  const replacement = `<button 
+  const badStart = content.indexOf('<button \n            className="rate-history-btn"');
+  const badEnd = content.indexOf('<div className="virtual-shopping"');
+
+  if (badStart !== -1 && badEnd !== -1) {
+    const replacement = `<button 
             className="rate-history-btn"
             onClick={() => setIsHistoryOpen(true)}
           >
@@ -47,10 +49,10 @@ if (badStart !== -1 && badEnd !== -1) {
             <img src="/image/jewel-logo.png" alt="Jewel Logo" className="jewel-logo-img" />
             `;
 
-  content = content.substring(0, badStart) + replacement + content.substring(badEnd);
-  fs.writeFileSync(String.raw`d:\jewellery\jewellery\src\components\Layout\Layout.js`, content);
-  console.log('Fixed Layout.js successfully');
-} else {
-  console.log('Could not find indices', badStart, badEnd);
+    content = content.substring(0, badStart) + replacement + content.substring(badEnd);
+    fs.writeFileSync(String.raw`d:\jewellery\jewellery\src\components\Layout\Layout.js`, content);
+    console.log('Fixed Layout.js successfully');
+  } else {
+    console.log('Could not find indices', badStart, badEnd);
+  }
 }
->>>>>>> cf617e9b9508798170cf833358d1880d48c2edcf
